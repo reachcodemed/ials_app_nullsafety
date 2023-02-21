@@ -24,7 +24,7 @@ void startCPRSoundPlayer (context)
     playSound('adrAndami');
     amiodaroneButtonText = "300 mg";
   }
-  else if ((systemBrain.adrenalineButtonActive == true && systemBrain.amiodaroneButtonActive == true && global.amiodaroneCycle == 2)|| (global.specialAmiodaroneRequirement == 2&& systemBrain.adrenalineButtonActive == true))
+  else if ((systemBrain.adrenalineButtonActive == true && systemBrain.amiodaroneButtonActive == true && systemBrain.amiodaroneCycle == 2)|| (global.specialAmiodaroneRequirement == 2&& systemBrain.adrenalineButtonActive == true))
     {
     playSound('adrAndami2');
     amiodaroneButtonText = "150 mg";
@@ -35,7 +35,7 @@ void startCPRSoundPlayer (context)
     amiodaroneButtonText = "300 mg";
   }
 
-  else if ((systemBrain.adrenalineButtonActive == false && global.amiodaroneCycle == 2 && systemBrain.amiodaroneButtonActive == true)||(global.specialAmiodaroneRequirement == 1 && systemBrain.adrenalineButtonActive == false))
+  else if ((systemBrain.adrenalineButtonActive == false && systemBrain.amiodaroneCycle == 2 && systemBrain.amiodaroneButtonActive == true)||(global.specialAmiodaroneRequirement == 1 && systemBrain.adrenalineButtonActive == false))
   {
     playSound('amiodarone150');
     amiodaroneButtonText = "150 mg";

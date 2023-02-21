@@ -36,9 +36,31 @@ class _MotherBoardState extends State<MotherBoard> {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider<GlobalTimerService>(create:(_) => GlobalTimerService(),),
+
           ChangeNotifierProvider<TwoMinuteTimerService>(create:(_) => TwoMinuteTimerService(),),
 
-          ChangeNotifierProvider<SystemBrain>(create:(_)=> SystemBrain(),)
+          ChangeNotifierProvider<SystemBrain>(create:(_) => SystemBrain(),),
+
+          //NB: this was code that was allowing communication between the providers but it was not required in the end
+
+
+          // ChangeNotifierProxyProvider<TwoMinuteTimerService,SystemBrain>(
+          //   create:(_) => SystemBrain(),
+          //   update: (_,twoMinuteTimerService,systemBrain,) => systemBrain!
+          //     ..adrenalineCycle = twoMinuteTimerService.adrenalineCycle
+          //     ..amiodaroneCycle = twoMinuteTimerService.amiodaroneCycle
+          //
+          //
+          //
+          //
+          // ),
+          //
+          // ChangeNotifierProxyProvider<SystemBrain,TwoMinuteTimerService>(
+          //   create:(_) => TwoMinuteTimerService(),
+          //   update: (_,systemBrain,twoMinuteTimerService) => twoMinuteTimerService!
+          //
+          // ),
+
         ],
         child: Scaffold(
             resizeToAvoidBottomInset: false,

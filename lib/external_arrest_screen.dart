@@ -304,7 +304,7 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                             global.startTime = startTime;
                             systemBrain.cycleCounter = cycleNumber!;
 
-                            global.nonShockableCounter = peaCyclesNumber! + asystoleCyclesNumber!;
+                            systemBrain.nonShockableCounter = peaCyclesNumber! + asystoleCyclesNumber!;
                             global.shockCounter = vfCyclesNumber! + pVTCyclesNumber!;
 
                             systemBrain.adrenalineCounter  = totalAdrenalineGiven!;
@@ -340,7 +340,7 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                               global.roscCounter = totalROSC;
                             }
 
-                            adrenalineLastCycle==0? global.adrenalineCycle =1:global.adrenalineCycle = 0;
+                            adrenalineLastCycle==0? systemBrain.adrenalineCycle =1:systemBrain.adrenalineCycle = 0;
 
                             if(callOutTime == null)
                               {
@@ -368,11 +368,11 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                                 +"\n" +"Arrest start time: $startTime"
                                 +"\n" +"First rhythm detected: ${rhythmNames[firstRhythm!]}"
                                 +"\n" + "Cycles completed: ${systemBrain.cycleCounter}"
-                                +"\n" + "Non-shockable cycles completed: ${global.nonShockableCounter}"
+                                +"\n" + "Non-shockable cycles completed: ${systemBrain.nonShockableCounter}"
                                 +"\n" + "Shockable cycles completed: ${global.shockCounter}"
                                 +"\n" + "Shocks delivered: $shockNumber"
                                 +"\n" + "Adrenaline doses given: ${systemBrain.adrenalineCounter}"
-                                +"\n" + "Amiodarone doses given: ${global.amiodaroneCounter}"
+                                +"\n" + "Amiodarone doses given: ${systemBrain.amiodaroneCounter}"
                                 +"\n" + "Total ROSC: ${global.roscCounter}"
                                 +"\n" + "Last rhythm detected: ${rhythmNames[firstRhythm!]}\n"
                             ;

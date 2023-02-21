@@ -62,10 +62,10 @@ class _LogPageState extends State<LogPage> {
 Arrest start time: ${global.startDate} at ${global.startTime} 
 
 Number of cycles: ${systemBrain.cycleCounter.toString()}
-Number of non-shockable cycles: ${global.nonShockableCounter.toString()}
+Number of non-shockable cycles: ${systemBrain.nonShockableCounter.toString()}
 Number of shockable cycles: ${global.shockCounter}
 Number of adrenaline given: ${systemBrain.adrenalineCounter}
-Number of amiodarone given: ${global.amiodaroneCounter}
+Number of amiodarone given: ${systemBrain.amiodaroneCounter}
                       ''',
                   ),
 
@@ -231,10 +231,10 @@ Number of amiodarone given: ${global.amiodaroneCounter}
 Arrest start time: ${global.startDate} at ${global.startTime} 
 
 Number of cycles: ${systemBrain.cycleCounter.toString()}
-Number of non-shockable cycles: ${global.nonShockableCounter.toString()}
+Number of non-shockable cycles: ${systemBrain.nonShockableCounter.toString()}
 Number of shockable cycles: ${global.shockCounter}
 Number of adrenaline given: ${systemBrain.adrenalineCounter}
-Number of amiodarone given: ${global.amiodaroneCounter}
+Number of amiodarone given: ${systemBrain.amiodaroneCounter}
                       ''' +"\n" + "Events Summary: \n" +global.log);
 
     Share.share(sendLogText);

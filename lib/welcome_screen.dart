@@ -65,17 +65,17 @@ class WelcomeScreen extends StatelessWidget {
                   welcomeButtonText: 'Start New Arrest',
                   welcomeButtonColour: kBlueButtonColour,
                   welcomeButtonPressed: () {
-                    global.startTime = TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0');
-                    global.timeNow = TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0');
+                    global.startTime = '${TimeOfDay.now().hour.toString().padLeft(2,'0')}:${TimeOfDay.now().minute.toString().padLeft(2,'0')}';
+                    global.timeNow = '${TimeOfDay.now().hour.toString().padLeft(2,'0')}:${TimeOfDay.now().minute.toString().padLeft(2,'0')}';
                     Provider.of<SystemBrain>(context,listen: false).cycleCounter = 0;
                     global.shockCounter = 0;
-                    global.nonShockableCounter = 0;
+                    Provider.of<SystemBrain>(context,listen: false).nonShockableCounter = 0;
                     Provider.of<SystemBrain>(context,listen: false).adrenalineCounter = 0;
-                    global.amiodaroneCounter = 0;
-                    global.adrenalineCycle = 0;
-                    global.amiodaroneCycle = 0;
+                    Provider.of<SystemBrain>(context,listen: false).amiodaroneCounter = 0;
+                    Provider.of<SystemBrain>(context,listen: false).adrenalineCycle = 0;
+                    Provider.of<SystemBrain>(context,listen: false).amiodaroneCycle = 0;
 
-                    global.log = '${TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0')} - Arrest started';
+                    global.log = '${'${TimeOfDay.now().hour.toString().padLeft(2,'0')}:${TimeOfDay.now().minute.toString().padLeft(2,'0')}'} - Arrest started';
 
                     global.currentAccessLogText = "";
                     global.currentAirwayLogText = "";

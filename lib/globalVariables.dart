@@ -2,13 +2,13 @@ library global;
 import 'package:flutter/material.dart';
 
 //int cycleCounter = 0;
-int nonShockableCounter = 0;
+//int nonShockableCounter = 0;
 int shockCounter = 0;
 
 //int adrenalineCounter = 0;
-int adrenalineCycle = 0;
-int amiodaroneCycle = 0;
-int amiodaroneCounter = 0;
+//int adrenalineCycle = 0;
+//int amiodaroneCycle = 0;
+//int amiodaroneCounter = 0;
 
 // int smallBoreCounter = 0;
 // int largeBoreCounter = 0;

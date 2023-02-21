@@ -12,6 +12,11 @@ class SystemBrain extends ChangeNotifier
 
   int cycleCounter = 0;
   int adrenalineCounter = 0;
+  int adrenalineCycle = 0;
+  int amiodaroneCycle = 0;
+  int amiodaroneCounter = 0;
+
+  int nonShockableCounter = 0;
 
   bool adrenalineButtonActive = false;
   bool amiodaroneButtonActive = false;
@@ -69,7 +74,7 @@ class SystemBrain extends ChangeNotifier
           Provider.of<SystemBrain>(context, listen: false).amiodaroneButtonActive = false;
         }
         global.adrenalineCycle = adrenalineCycleSavedState;
-        global.amiodaroneCycle = amiodaroneCycleSavedState;
+        amiodaroneCycle = amiodaroneCycleSavedState;
       }
     ],
     [' - Adrenaline x${global.adrenalineCounter.toString()} given', (context) {
@@ -79,9 +84,9 @@ class SystemBrain extends ChangeNotifier
     ],
     [' - Amiodarone x${global.amiodaroneCounter.toString()} given', (context) {
       global.amiodaroneCounter--;
-      global.amiodaroneCycle--;
+      amiodaroneCycle--;
 
-      if(global.amiodaroneCycle == 2)
+      if(amiodaroneCycle == 2)
       {
         amiodaroneButtonText = "150 mg";
       }
@@ -381,7 +386,7 @@ class SystemBrain extends ChangeNotifier
     {
       //NOTE SET STATE REMOVED HERE - will need one as button not updating
         adrenalineCounter++;
-        global.adrenalineCycle = 1;
+        adrenalineCycle = 1;
         adrenalineButtonActive = false;
 
         global.log = '${global.log}\n${global.timeNow} - Adrenaline x$adrenalineCounter given';
@@ -401,18 +406,18 @@ class SystemBrain extends ChangeNotifier
 
   void adrenalineButtonActivation() {
     if (global.shockCounter >= 2 || cycleCounter > global.shockCounter ||
-        adrenalineCounter > 1 || global.nonShockableCounter > 0) {
+        adrenalineCounter > 1 || nonShockableCounter > 0) {
 
       //TODO: setState removed - needs to be re-added
 
-        global.adrenalineCycle++;
+        adrenalineCycle++;
 
     }
     else {
 
     }
 
-    if ((global.adrenalineCycle % 2) != 0) {
+    if ((adrenalineCycle % 2) != 0) {
       //TODO: setState removed - needs to be re-added
         adrenalineButtonActive = true;
 
@@ -472,9 +477,9 @@ class SystemBrain extends ChangeNotifier
   }
 
   void amiodaroneButtonActivation() {
-    amiodaroneCycleSavedState = global.amiodaroneCycle;
+    amiodaroneCycleSavedState = amiodaroneCycle;
 
-    if (global.shockCounter == 2 || global.amiodaroneCycle == 2 ||
+    if (global.shockCounter == 2 || amiodaroneCycle == 2 ||
         global.specialAmiodaroneRequirement == 1 ||
         global.specialAmiodaroneRequirement == 2)
 
@@ -483,7 +488,7 @@ class SystemBrain extends ChangeNotifier
         amiodaroneButtonActive = true;
 
         if (global.specialAmiodaroneRequirement == 2) {
-          global.amiodaroneCycle = 2;
+          amiodaroneCycle = 2;
         }
 
     }
@@ -502,10 +507,10 @@ class SystemBrain extends ChangeNotifier
     else {
     //NOTE SET STATE REMOVED HERE
         global.specialAmiodaroneRequirement = 0;
-        global.amiodaroneCounter++;
-        global.amiodaroneCycle++;
+        amiodaroneCounter++;
+        amiodaroneCycle++;
         amiodaroneButtonActive = false;
-        global.log = '${global.log}\n${global.timeNow} - Amiodarone x${global.amiodaroneCounter} given';
+        global.log = '${global.log}\n${global.timeNow} - Amiodarone x$amiodaroneCounter given';
 
         global.lastLogEntry = 3;
         undoEventButtonActive = true;
@@ -526,8 +531,8 @@ class SystemBrain extends ChangeNotifier
 
     //TODO: removed setState, need to re-instate
 
-      adrenalineCycleSavedState = global.adrenalineCycle;
-      global.nonShockableCounter++;
+      adrenalineCycleSavedState = adrenalineCycle;
+      nonShockableCounter++;
       cycleCounter++;
       //rhythmButtonActive = false;
 
@@ -719,15 +724,16 @@ class SystemBrain extends ChangeNotifier
               global.lastLogEntry = 31;
             }
           }
-          else {
+          else
+          {
 
           }
       }
 
       else {
         //TODO: set state removed need to update this
-          amiodaroneCycleSavedState = global.amiodaroneCycle;
-          adrenalineCycleSavedState = global.adrenalineCycle;
+          amiodaroneCycleSavedState = amiodaroneCycle;
+          adrenalineCycleSavedState = adrenalineCycle;
           adrenalineButtonActivation();
           amiodaroneButtonActivation();
           global.shockCounter++;
@@ -748,9 +754,9 @@ class SystemBrain extends ChangeNotifier
 
           undoEventButtonActive = true;
 
-          if (global.amiodaroneCycle == 1) {
+          if (amiodaroneCycle == 1) {
             //TODO: set state removed need to update this
-              global.amiodaroneCycle++;
+              amiodaroneCycle++;
 
           }
 

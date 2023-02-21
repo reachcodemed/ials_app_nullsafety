@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:ials_app_nullsafety/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:ials_app_nullsafety/globalVariables.dart' as global;
+import 'package:ials_app_nullsafety/system_brain.dart';
+import 'package:provider/provider.dart';
 
 class GlobalTimerService extends ChangeNotifier{
   late Stopwatch _watch;
@@ -52,6 +54,8 @@ class GlobalTimerService extends ChangeNotifier{
 }
 
 class TwoMinuteTimerService extends ChangeNotifier{
+
+
   late Stopwatch _watch;
   Timer? _timer;
 
@@ -65,25 +69,27 @@ class TwoMinuteTimerService extends ChangeNotifier{
   }
 
   void twoMinuteTimerTick(Timer timer) {
+
     _currentDuration = _watch.elapsed;
 
 
+              if(_currentDuration.inSeconds.toInt() == 115)
+              {
+                playSound('alarm');
+              }
 
-    if(_currentDuration.inSeconds.toInt() == 115)
-      {
-        playSound('alarm');
-      }
+              if(_currentDuration.inSeconds.toInt()==120) {
+                //rhythmButtonActive = true;
+                twoMinuteTimerStop();
+                twoMinuteTimerReset();
+                playSound('rhythmCheck');
+                // print("Amiodarone +${amiodaroneCycle}");
+                // print("Adrenaline +$adrenalineCycle");
 
-    if(_currentDuration.inSeconds.toInt()==120)
-      {
-        //rhythmButtonActive = true;
-        twoMinuteTimerStop();
-        twoMinuteTimerReset();
-        playSound('rhythmCheck');
-        print("Amiodarone +${global.amiodaroneCycle}");
-        print("Adrenaline +${global.adrenalineCycle}");
 
-      }
+              }
+
+
 
     // notify all listening widgets
     notifyListeners();

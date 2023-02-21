@@ -597,7 +597,7 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                       ), //NON SHOCKABLE BUTTONS
 
                       Counters(counterIcon: CupertinoIcons.bolt_slash,
-                        counterValue: global.nonShockableCounter,),
+                        counterValue: systemBrain.nonShockableCounter,),
 
                       const SizedBox(width: 10,),
                     ],
@@ -685,7 +685,7 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
 
                       Expanded(
                         flex: 1,
-                        child: Counters(counterValue: global.amiodaroneCounter,
+                        child: Counters(counterValue: systemBrain.amiodaroneCounter,
                           counterIcon: CupertinoIcons.slowmo,),
 
                         //color: Colors.green,
@@ -1030,11 +1030,11 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
 
                             systemBrain.cycleCounter = 0;
                             global.shockCounter = 0;
-                            global.nonShockableCounter = 0;
+                            systemBrain.nonShockableCounter = 0;
                             systemBrain.adrenalineCounter = 0;
-                            global.amiodaroneCounter = 0;
-                            global.adrenalineCycle = 0;
-                            global.amiodaroneCycle = 0;
+                            systemBrain.amiodaroneCounter = 0;
+                            systemBrain.adrenalineCycle = 0;
+                            systemBrain.amiodaroneCycle = 0;
 
                             global.log = '${global.log}\n${global.timeNow} - Re-arrest, cycle counting and timers restarted and not continued from previous arrest';
                           });
@@ -1285,10 +1285,10 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
 Arrest start time: ${global.startDate} at ${global.startTime} 
 
 Number of cycles: ${systemBrain.cycleCounter.toString()}
-Number of non-shockable cycles: ${global.nonShockableCounter.toString()}
+Number of non-shockable cycles: ${systemBrain.nonShockableCounter.toString()}
 Number of shockable cycles: ${global.shockCounter}
 Number of adrenaline given: ${systemBrain.adrenalineCounter}
-Number of amiodarone given: ${global.amiodaroneCounter}
+Number of amiodarone given: ${systemBrain.amiodaroneCounter}
                       ''' + "\n" + "Events Summary: \n" + global.log);
 
     Share.share(sendLogText);
