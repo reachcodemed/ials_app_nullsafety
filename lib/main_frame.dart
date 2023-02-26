@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:ials_app_nullsafety/functions.dart';
 import 'package:ials_app_nullsafety/constants.dart';
 import 'package:ials_app_nullsafety/system_brain.dart';
@@ -15,53 +14,53 @@ import 'pop_up_windows.dart';
 import 'package:share/share.dart';
 import 'package:provider/provider.dart';
 
-int adrenalineCycleSavedState = 0;
-int amiodaroneCycleSavedState = 0;
+//int adrenalineCycleSavedState = 0;
+//int amiodaroneCycleSavedState = 0;
 
-String entryPaneText = " ";
-String lastLogRemoveText = "";
+//String entryPaneText = " ";
+//String lastLogRemoveText = "";
 
-bool reArrestAdrenalineKeepActive = false;
-bool reArrestAmiodaroneKeepActive = false;
+//bool reArrestAdrenalineKeepActive = false;
+//bool reArrestAmiodaroneKeepActive = false;
 
 //bool accessButtonActive = false;
 //bool oxygenButtonActive = false;
 //bool lucasButtonActive = false;
-bool rhythmButtonActiveMasterSwitch = true;
-bool roscRIPButtonActive = true;
-bool undoEventButtonActive = false;
+//bool rhythmButtonActiveMasterSwitch = true;
+//bool roscRIPButtonActive = true;
+
+//bool undoEventButtonActive = false;
 
 //bool adrenalineButtonActive = false;
 //bool amiodaroneButtonActive = false;
 
-bool amiodaroneButtonActivePersist = false;
-bool adrenalineButtonActivePersist = false;
+//bool amiodaroneButtonActivePersist = false;
+//bool adrenalineButtonActivePersist = false;
 
-bool vTVFVisible = true;
-bool shockButtonVisible = false;
-bool twoMinuteTimerTextVisibility = false;
+//bool systemBrain.vTVFVisible = true;
+//bool systemBrain.shockButtonVisible = false;
+//
 
 late bool rhythmTextLabelVisibility;
 late bool attachPadsButton;
 bool reArrestButtonVisible = false;
 bool ripStatus = false;
-bool ripORroscStatus = false;
+bool ripOrRoscStatus = false;
 
 bool firstTimeShock = true;
-bool threeShockButtonVisible = true;
-bool? threeShockTherapyInProgress;
-int threeShockCounter = 0;
+bool threeshockButtonVisible = true;
+//bool? threeShockTherapyInProgress;
+//int threeShockCounter = 0;
 
-String vFButtonText = "VF";
-String vTButtonText = "pVT";
-String amiodaroneButtonText = "";
+//String vFButtonText = "VF";
+//String vTButtonText = "pVT";
+//String amiodaroneButtonText = "";
 
-bool vFPressed = false;
-bool vTPressed = false;
+
 
 class MainFrame extends StatefulWidget {
 
-const MainFrame ({
+const MainFrame ({super.key,
   required this.rhythmButtonActiveInitial,
   required this.attachPadsActiveInitial,
 });
@@ -84,7 +83,7 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
 
   //this is the function which you can use to apply functions as a stateful widget is being built.
   //it will only be created when a widget is being built the first time.
-  //@override
+  @override
   void initState() {
     super.initState();
     setState(() {
@@ -92,7 +91,7 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
         Provider.of<SystemBrain>(context, listen: false).startGlobalTimerOnly(context);
       });
       //
-      rhythmButtonActiveMasterSwitch = widget.rhythmButtonActiveInitial;
+      Provider.of<SystemBrain>(context, listen: false).rhythmButtonActiveMasterSwitch = widget.rhythmButtonActiveInitial;
       rhythmTextLabelVisibility = !widget.attachPadsActiveInitial;
       attachPadsButton = widget.attachPadsActiveInitial;
       //twominutetimer = widget.initialTwoMinuteTimerText;
@@ -132,9 +131,13 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
 
+
+
+
+
     final systemBrain = Provider.of<SystemBrain>(context, listen: false);
 
-    global.timeNow = '${TimeOfDay
+    systemBrain.timeNow = '${TimeOfDay
         .now()
         .hour
         .toString()
@@ -175,7 +178,7 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                         //crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           TwoMinuteTimerTextBox(
-                            ripORroscStatus: ripORroscStatus,
+                            ripORroscStatus: ripOrRoscStatus,
                             timerTextMaxFontSize: 60.0,
                             timerTextMinFontSize: 20,
                             timerTextMaxLines: 1,
@@ -183,7 +186,7 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                             timerTextVerticalPadding: 10.0,
                           ),
                           Visibility(
-                            visible: twoMinuteTimerTextVisibility,
+                            visible: systemBrain.twoMinuteTimerTextVisibility,
                             child: Container(
                               margin: const EdgeInsets.only(bottom: 5),
                               child: const Center(
@@ -218,7 +221,7 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                               const SizedBox(height: 5.0, width: 5.0,),
                               StartTimeTextBox(
                                 timerTextColour: const Color(0xFFb3b3b3),
-                                timerText: 'Start Time: ${global.startTime}',
+                                timerText: 'Start Time: ${systemBrain.startTime}',
                                 timerTextMaxFontSize: 30.0,
                                 timerTextMinFontSize: 10,
                                 timerTextMaxLines: 1,
@@ -296,21 +299,21 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                             systemBrain.oxygenActivation();
 
                             if (systemBrain.oxygenActive == true) {
-                              global.lastLogEntry = 4;
-                              undoEventButtonActive = true;
+                              systemBrain.lastLogEntry = 4;
+                              systemBrain.undoEventButtonActive = true;
                             }
 
                             else {
-                              global.lastLogEntry = 5;
-                              undoEventButtonActive = true;
+                              systemBrain.lastLogEntry = 5;
+                              systemBrain.undoEventButtonActive = true;
                             }
 
                               //TODO: Oxygen needs fixing and log changes updated
                               // oxygenButtonActive = !oxygenButtonActive;
                               //
                            systemBrain.oxygenActive
-                                  ? global.log = '${global.log}\n${global.timeNow} - Oxygen delivery commenced'
-                                  : global.log = '${global.log}\n${global.timeNow} - Oxygen delivery stopped';
+                                  ? global.log = '${global.log}\n${systemBrain.timeNow} - Oxygen delivery commenced'
+                                  : global.log = '${global.log}\n${systemBrain.timeNow} - Oxygen delivery stopped';
 
 
 
@@ -327,16 +330,16 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                           systemBrain.lucasActivation();
 
                             systemBrain.lucasActive
-                                ? global.log = '${global.log}\n${global.timeNow} - LUCAS device commenced'
-                                : global.log = '${global.log}\n${global.timeNow} - LUCAS device stopped';
+                                ? global.log = '${global.log}\n${systemBrain.timeNow} - LUCAS device commenced'
+                                : global.log = '${global.log}\n${systemBrain.timeNow} - LUCAS device stopped';
 
                             if (systemBrain.lucasActive == true) {
-                              global.lastLogEntry = 6;
-                              undoEventButtonActive = true;
+                              systemBrain.lastLogEntry = 6;
+                              systemBrain.undoEventButtonActive = true;
                             }
                             else {
-                              global.lastLogEntry = 7;
-                              undoEventButtonActive = true;
+                              systemBrain.lastLogEntry = 7;
+                              systemBrain.undoEventButtonActive = true;
                             }
 
                         },
@@ -407,55 +410,55 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                     children: [
                       const SizedBox(width: 10,),
                       Counters(counterIcon: CupertinoIcons.bolt_fill,
-                        counterValue: global.shockCounter,),
+                        counterValue: systemBrain.shockCounter,),
                       Stack(
                         children: [
                           Visibility(
-                            visible: vTVFVisible,
+                            visible: systemBrain.vTVFVisible,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SmallRhythmButton(
-                                  rhythmButtonText: vFButtonText,
+                                  rhythmButtonText: systemBrain.vFButtonText,
                                   rhythmButtonColour: kVTVFActiveButtonColour,
                                   rhythmButtonTextColour: Colors.white,
-                                  rhythmButtonPressed: rhythmButtonActiveMasterSwitch
+                                  rhythmButtonPressed: systemBrain.rhythmButtonActiveMasterSwitch
                                       ? () {
                                     setState(() {
-                                      vTPressed = false;
-                                      vFPressed = false;
-                                      vFPressed = true;
+                                      systemBrain.vTPressed = false;
+                                      //vFPressed = false;
+                                      systemBrain.vFPressed = true;
                                       playSound('shockAdvised');
-                                      vTVFVisible = false;
-                                      shockButtonVisible = true;
-                                      rhythmButtonActiveMasterSwitch = false;
+                                      systemBrain.vTVFVisible = false;
+                                      systemBrain.shockButtonVisible = true;
+                                      systemBrain.rhythmButtonActiveMasterSwitch = false;
                                       global.log =
-                                          '${global.log}\n${global.timeNow} - Ventricular fibrillation rhythm detected - shockable rhythm';
-                                      global.lastLogEntry = 8;
-                                      undoEventButtonActive = true;
+                                          '${global.log}\n${systemBrain.timeNow} - Ventricular fibrillation rhythm detected - shockable rhythm';
+                                      systemBrain.lastLogEntry = 8;
+                                      systemBrain.undoEventButtonActive = true;
                                     });
                                   }
                                       : null,
                                 ),
                                 SmallRhythmButton(
-                                  rhythmButtonText: vTButtonText,
+                                  rhythmButtonText: systemBrain.vTButtonText,
                                   rhythmButtonColour: kVTVFActiveButtonColour,
                                   rhythmButtonTextColour: Colors.white,
-                                  rhythmButtonPressed: rhythmButtonActiveMasterSwitch
+                                  rhythmButtonPressed: systemBrain.rhythmButtonActiveMasterSwitch
                                       ? () {
                                     setState(() {
                                       playSound('shockAdvised');
-                                      vTPressed = false;
-                                      vFPressed = false;
-                                      vTPressed = true;
-                                      vTVFVisible = false;
-                                      shockButtonVisible = true;
-                                      rhythmButtonActiveMasterSwitch = false;
+                                      //vTPressed = false;
+                                      systemBrain.vFPressed = false;
+                                      systemBrain.vTPressed = true;
+                                      systemBrain.vTVFVisible = false;
+                                      systemBrain.shockButtonVisible = true;
+                                      systemBrain.rhythmButtonActiveMasterSwitch = false;
                                       global.log =
-                                          '${global.log}\n${global.timeNow} - Pulseless ventricular tachycardia rhythm detected - shockable rhythm';
+                                          '${global.log}\n${systemBrain.timeNow} - Pulseless ventricular tachycardia rhythm detected - shockable rhythm';
 
-                                      global.lastLogEntry = 9;
-                                      undoEventButtonActive = true;
+                                      systemBrain.lastLogEntry = 9;
+                                      systemBrain.undoEventButtonActive = true;
                                     });
                                   }
                                       : null,
@@ -465,26 +468,26 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                           ),
 
                           Visibility(
-                            visible: shockButtonVisible,
+                            visible: systemBrain.shockButtonVisible,
                             child:
                             Center(child: SmallRhythmButton(
                               rhythmButtonText: 'SHOCK',
                               rhythmButtonColour: Colors.yellow,
                               rhythmButtonHeight: 80.0,
                               rhythmButtonTextColour: Colors.black,
-                              rhythmButtonPressed: shockButtonVisible ? () =>
+                              rhythmButtonPressed: systemBrain.shockButtonVisible ? () =>
                                   systemBrain.shockFunction(context) : null,),
                             ),
                           ),
                           // Visibility(
-                          //   visible: threeShockButtonVisible,
+                          //   visible: threesystemBrain.systemBrain.shockButtonVisible,
                           //   child:
                           //   Center(child: RhythmButton(
                           //     rhythmButtonText: 'SHOCK',
                           //     rhythmButtonColour: Colors.yellow,
                           //     rhythmButtonHeight: 80.0,
                           //     rhythmButtonTextColour: Colors.black,
-                          //     rhythmButtonPressed: shockButtonVisible?()=>ShockFunction():null,),
+                          //     rhythmButtonPressed: systemBrain.shockButtonVisible?()=>ShockFunction():null,),
                           //   ),
                           // ),
                         ],
@@ -498,8 +501,8 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                               rhythmButtonHeight: 80.0,
                               rhythmButtonColour: kYellowButtonColour,
                               rhythmButtonTextColour: kButtonTextColourDark,
-                              rhythmButtonPressed: roscRIPButtonActive ? () {
-                                _roscRIPDiaglog();
+                              rhythmButtonPressed: systemBrain.roscRIPButtonActive ? () {
+                                _roscRIPDialog();
                               } : null,
                             ),
                           ),
@@ -529,32 +532,32 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                             rhythmButtonText: 'ASYSTOLE',
                             rhythmButtonColour: kPEAAsystoleButtonColour,
                             rhythmButtonTextColour: Colors.white,
-                            rhythmButtonPressed: rhythmButtonActiveMasterSwitch
+                            rhythmButtonPressed: systemBrain.rhythmButtonActiveMasterSwitch
                                 ? () {
-                              global.log = '${global.log}\n${global.timeNow} - Asystole detected - non-shockable rhythm';
+                              global.log = '${global.log}\n${systemBrain.timeNow} - Asystole detected - non-shockable rhythm';
 
-                              if (threeShockTherapyInProgress == true) {
-                                if (threeShockCounter == 1) {
-                                  global.lastLogEntry = 32;
+                              if (systemBrain.threeShockTherapyInProgress == true) {
+                                if (systemBrain.threeShockCounter == 1) {
+                                  systemBrain.lastLogEntry = 32;
                                 }
-                                else if (threeShockCounter == 2) {
-                                  global.lastLogEntry = 33;
+                                else if (systemBrain.threeShockCounter == 2) {
+                                  systemBrain.lastLogEntry = 33;
                                 }
-                                else if (threeShockCounter == 3) {
-                                  global.lastLogEntry = 10;
+                                else if (systemBrain.threeShockCounter == 3) {
+                                  systemBrain.lastLogEntry = 10;
                                 }
                                 else {
 
                                 }
                               }
                               else {
-                                global.lastLogEntry = 10;
+                                systemBrain.lastLogEntry = 10;
                               }
 
-                              threeShockTherapyInProgress = false;
+                              systemBrain.threeShockTherapyInProgress = false;
                               systemBrain.nonShockableFunction(context);
 
-                              undoEventButtonActive = true;
+                              systemBrain.undoEventButtonActive = true;
                             }
                                 : null,
 
@@ -563,33 +566,33 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                             rhythmButtonText: 'PEA',
                             rhythmButtonColour: kInterventionsButtonActiveColour,
                             rhythmButtonTextColour: Colors.white,
-                            rhythmButtonPressed: rhythmButtonActiveMasterSwitch
+                            rhythmButtonPressed: systemBrain.rhythmButtonActiveMasterSwitch
                                 ? () {
-                              global.log = '${global.log}\n${global.timeNow} - Pulseless Electrical Activity detected - non-shockable rhythm';
+                              global.log = '${global.log}\n${systemBrain.timeNow} - Pulseless Electrical Activity detected - non-shockable rhythm';
 
 
-                              if (threeShockTherapyInProgress == true) {
-                                if (threeShockCounter == 1) {
-                                  global.lastLogEntry = 34;
+                              if (systemBrain.threeShockTherapyInProgress == true) {
+                                if (systemBrain.threeShockCounter == 1) {
+                                  systemBrain.lastLogEntry = 34;
                                 }
-                                else if (threeShockCounter == 2) {
-                                  global.lastLogEntry = 35;
+                                else if (systemBrain.threeShockCounter == 2) {
+                                  systemBrain.lastLogEntry = 35;
                                 }
-                                else if (threeShockCounter == 3) {
-                                  global.lastLogEntry = 10;
+                                else if (systemBrain.threeShockCounter == 3) {
+                                  systemBrain.lastLogEntry = 10;
                                 }
                                 else {
 
                                 }
                               }
                               else {
-                                global.lastLogEntry = 10;
+                                systemBrain.lastLogEntry = 10;
                               }
 
-                              threeShockTherapyInProgress = false;
+                              systemBrain.threeShockTherapyInProgress = false;
                               systemBrain.nonShockableFunction(context);
 
-                              undoEventButtonActive = true;
+                              systemBrain.undoEventButtonActive = true;
                             }
                                 : null,
                           ),
@@ -670,7 +673,7 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                             systemBrain.amiodaroneActiveFunction() : null,
 
 
-                        additionalTextWidget: AutoSizeText(amiodaroneButtonText,
+                        additionalTextWidget: AutoSizeText(systemBrain.amiodaroneButtonText,
                           style: const TextStyle(
                             fontSize: 10.0,
                             fontWeight: FontWeight.w500,
@@ -745,17 +748,17 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                         actionButtonColour: kBlueButtonColour,
                         actionButtonDescriptionText: 'UNDO EVENT',
                         additionalTextWidget: const SizedBox(),
-                        actionButtonFunction: undoEventButtonActive ? () {
-                          if (global.lastLogEntry == 1 ||
-                              global.lastLogEntry == 8 ||
-                              global.lastLogEntry == 9 || global.lastLogEntry ==
-                              10 || global.lastLogEntry == 11 ||
-                              global.lastLogEntry == 30 ||
-                              global.lastLogEntry == 31 ||
-                              global.lastLogEntry == 32 ||
-                              global.lastLogEntry == 33 ||
-                              global.lastLogEntry == 34 ||
-                              global.lastLogEntry == 35) {
+                        actionButtonFunction: systemBrain.undoEventButtonActive ? () {
+                          if (systemBrain.lastLogEntry == 1 ||
+                              systemBrain.lastLogEntry == 8 ||
+                              systemBrain.lastLogEntry == 9 || systemBrain.lastLogEntry ==
+                              10 || systemBrain.lastLogEntry == 11 ||
+                              systemBrain.lastLogEntry == 30 ||
+                              systemBrain.lastLogEntry == 31 ||
+                              systemBrain.lastLogEntry == 32 ||
+                              systemBrain.lastLogEntry == 33 ||
+                              systemBrain.lastLogEntry == 34 ||
+                              systemBrain.lastLogEntry == 35) {
                             systemBrain.stopTwoMinuteTimerOnly(context);
                             systemBrain.resetTwoMinuteTimerOnly(context);
 
@@ -764,7 +767,7 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
 
                             setState(() {
                               //twominutetimer = 'RHYTHM CHECK';
-                              twoMinuteTimerTextVisibility = false;
+                              systemBrain.twoMinuteTimerTextVisibility = false;
                             });
                           }
                           else {
@@ -831,60 +834,64 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
 
 
   Future <void> _eventEntryDialog() async {
+    final systemBrain = Provider.of<SystemBrain>(context, listen: false);
+
     return showDialog<void>(
+        barrierDismissible: true,
         useSafeArea: true,
         context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Container(
-                margin: const EdgeInsets.fromLTRB(10, 0, 10, 15),
-                child: const Text('Event Entry',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                    )
+        builder: (_) {
+          return ListenableProvider.value(
+            value: systemBrain,
+            child: AlertDialog(
+                title: Container(
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 15),
+                  child: const Text('Event Entry',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                      )
 
-                ),),
-              content: TextField(
-                //expands: true,
-                minLines: 3,
-                maxLines: 8,
-                //maxLines: null,
-                textAlign: TextAlign.start,
-                textAlignVertical: TextAlignVertical.center,
-                keyboardType: TextInputType.name,
-                onChanged: (value) {
-                  setState(() {
-                    entryPaneText = value;
-                  });
-                },
-                decoration: kTextFieldExternalArrestDecoration.copyWith(
-                  hintText: 'e.g. ICU registrar arrived',
-                  hintStyle: const TextStyle(color: kTextFieldLightGreyBorder,
-                    fontSize: 15,),),
-              ),
-              //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0), ),
-              actions: [
+                  ),),
+                content: TextField(
+                  //expands: true,
+                  minLines: 3,
+                  maxLines: 8,
+                  //maxLines: null,
+                  textAlign: TextAlign.start,
+                  textAlignVertical: TextAlignVertical.center,
+                  keyboardType: TextInputType.name,
+                  onChanged: (value) {
 
-                TextButton(
-                    child: const Text('Cancel'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    }
+                      systemBrain.entryPaneText = value;
+
+                  },
+                  decoration: kTextFieldExternalArrestDecoration.copyWith(
+                    hintText: 'e.g. ICU registrar arrived',
+                    hintStyle: const TextStyle(color: kTextFieldLightGreyBorder,
+                      fontSize: 15,),),
                 ),
-                TextButton(
-                    child: const Text('Sumbit'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      global.log = global.log + "\n"
-                          + global.timeNow + ' - ' + entryPaneText
-                      ;
+                //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0), ),
+                actions: [
 
-                      global.lastLogEntry = 12;
-                      undoEventButtonActive = true;
-                    }
-                )
-              ]
+                  TextButton(
+                      child: const Text('Cancel'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }
+                  ),
+                  TextButton(
+                      child: const Text('Submit'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        global.log = '${global.log}\n${systemBrain.timeNow} - ${systemBrain.entryPaneText}'
+                        ;
+
+                        systemBrain.lastLogEntry = 12;
+                        systemBrain.undoEventButtonActive = true;
+                      }
+                  )
+                ]
+            ),
           );
         }
 
@@ -934,33 +941,33 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                   TextButton(
                       child: const Text('Confirm'),
                       onPressed: () {
-                        rhythmButtonActiveMasterSwitch = false;
+                        systemBrain.rhythmButtonActiveMasterSwitch = false;
                         Navigator.of(context).pop();
                         systemBrain.resetTwoMinuteTimerOnly(context);
                         systemBrain.stopGlobalTimerOnly(context);
 
-                        ripORroscStatus = true;
+                        ripOrRoscStatus = true;
 
                         if (ripStatus == true) {
                           setState(() {
-                            roscRIPButtonActive = false;
-                            global.log = '${global.log}\n${global.timeNow} - Cardiopulmonary resuscitation stopped, RIP';
+                            systemBrain.roscRIPButtonActive = false;
+                            global.log = '${global.log}\n${systemBrain.timeNow} - Cardiopulmonary resuscitation stopped, RIP';
                           });
                         }
                         else {
                           setState(() {
                             reArrestButtonVisible = true;
-                            global.log = '${global.log}\n${global.timeNow} - Return of spontaneous circulation (ROSC)';
+                            global.log = '${global.log}\n${systemBrain.timeNow} - Return of spontaneous circulation (ROSC)';
                           });
                         }
                         setState(() {
                           systemBrain.adrenalineButtonActive
-                              ? reArrestAdrenalineKeepActive = true
-                              : reArrestAdrenalineKeepActive = false;
+                              ? systemBrain.reArrestAdrenalineKeepActive = true
+                              : systemBrain.reArrestAdrenalineKeepActive = false;
 
                           systemBrain.amiodaroneButtonActive
-                              ? reArrestAmiodaroneKeepActive = true
-                              : reArrestAmiodaroneKeepActive = false;
+                              ? systemBrain.reArrestAmiodaroneKeepActive = true
+                              : systemBrain.reArrestAmiodaroneKeepActive = false;
 
                           systemBrain.adrenalineButtonActive = false;
                           systemBrain.amiodaroneButtonActive = false;
@@ -986,16 +993,14 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
           return ListenableProvider.value(
             value: systemBrain,
             child: AlertDialog(
-              title: Container(
-                //margin: EdgeInsets.fromLTRB(10,0,10,15),
-                child: const Text(
-                  'Do you wish to continue with the arrest which just terminated (note this will not reset the counters)?',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                  ),
+              title: const Text(
+                'Do you wish to continue with the arrest which just terminated (note this will not reset the counters)?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 15.0,
+                ),
 
-                ),),
+              ),
 
               content: Row(
                 //crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1011,14 +1016,14 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                           systemBrain.startGlobalTimerOnly(context);
 
                           setState(() {
-                            rhythmButtonActiveMasterSwitch = true;
+                            systemBrain.rhythmButtonActiveMasterSwitch = true;
                             reArrestButtonVisible = false;
                             systemBrain.resetTwoMinuteTimerOnly(context);
                             systemBrain.startTwoMinuteTimerOnly(context);
                             // resetTwoMinuteTimer();
                             // startTwoMinuteTimer();
 
-                            global.startTime = '${TimeOfDay
+                            systemBrain.startTime = '${TimeOfDay
                                 .now()
                                 .hour
                                 .toString()
@@ -1029,16 +1034,16 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                                 .padLeft(2, '0')}';
 
                             systemBrain.cycleCounter = 0;
-                            global.shockCounter = 0;
+                            systemBrain.shockCounter = 0;
                             systemBrain.nonShockableCounter = 0;
                             systemBrain.adrenalineCounter = 0;
                             systemBrain.amiodaroneCounter = 0;
                             systemBrain.adrenalineCycle = 0;
                             systemBrain.amiodaroneCycle = 0;
 
-                            global.log = '${global.log}\n${global.timeNow} - Re-arrest, cycle counting and timers restarted and not continued from previous arrest';
+                            global.log = '${global.log}\n${systemBrain.timeNow} - Re-arrest, cycle counting and timers restarted and not continued from previous arrest';
                           });
-                          ripORroscStatus = false;
+                          ripOrRoscStatus = false;
                           Navigator.of(context).pop();
                         },
                         child: const Text("No",
@@ -1054,21 +1059,21 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                         onPressed: () {
                           systemBrain.startGlobalTimerOnly(context);
                           setState(() {
-                            rhythmButtonActiveMasterSwitch = true;
+                            systemBrain.rhythmButtonActiveMasterSwitch = true;
                             reArrestButtonVisible = false;
                             systemBrain.resetTwoMinuteTimerOnly(context);
                             systemBrain.startTwoMinuteTimerOnly(context);
 
-                            reArrestAmiodaroneKeepActive ? {
+                            systemBrain.reArrestAmiodaroneKeepActive ? {
                               systemBrain.amiodaroneButtonActive = true
                             } : {systemBrain.amiodaroneButtonActive = false};
-                            reArrestAdrenalineKeepActive ? {
+                            systemBrain.reArrestAdrenalineKeepActive ? {
                               systemBrain.adrenalineButtonActive = true
                             } : {systemBrain.adrenalineButtonActive = false};
                             //startGlobalTimer();
-                            global.log = '${global.log}\n${global.timeNow} - Re-arrest, cycle counting and timers continued from previous arrest';
+                            global.log = '${global.log}\n${systemBrain.timeNow} - Re-arrest, cycle counting and timers continued from previous arrest';
                           });
-                          ripORroscStatus = false;
+                          ripOrRoscStatus = false;
                           Navigator.of(context).pop();
                         },
                         child: const Text("Yes",
@@ -1084,23 +1089,21 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
     );
   }
 
-  Future <void> _roscRIPDiaglog() async {
+  Future <void> _roscRIPDialog() async {
     return showDialog<void>(
         useSafeArea: true,
         context: context,
         barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Container(
-              //margin: EdgeInsets.fromLTRB(10,0,10,15),
-              child: const Text('Please confirm ROSC or RIP',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 15.0,
+            title: const Text('Please confirm ROSC or RIP',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15.0,
 
-                ),
+              ),
 
-              ),),
+            ),
 
             content: Row(
               //crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1207,14 +1210,14 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
                         systemBrain.oxygenActive = false;
                         systemBrain.lucasActive = false;
                         //rhythmButtonActive = false;
-                        roscRIPButtonActive = true;
+                        systemBrain.roscRIPButtonActive = true;
 
                         systemBrain.adrenalineButtonActive = false;
                         systemBrain.amiodaroneButtonActive = false;
 
-                        vTVFVisible = true;
-                        shockButtonVisible = false;
-                        twoMinuteTimerTextVisibility = false;
+                        systemBrain.vTVFVisible = true;
+                        systemBrain.shockButtonVisible = false;
+                        systemBrain.twoMinuteTimerTextVisibility = false;
 
                         reArrestButtonVisible = false;
                         ripStatus = false;
@@ -1242,28 +1245,28 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
 
 
 
-                        global.lastLogEntry = 0;
-                        lastLogRemoveText = '';
-                        undoEventButtonActive = false;
+                        systemBrain.lastLogEntry = 0;
+                        systemBrain.lastLogRemoveText = '';
+                        systemBrain.undoEventButtonActive = false;
 
                         firstTimeShock = true;
-                        threeShockButtonVisible = true;
-                        threeShockTherapyInProgress;
-                        threeShockCounter = 0;
+                        threeshockButtonVisible = true;
+                        systemBrain.threeShockTherapyInProgress;
+                        systemBrain.threeShockCounter = 0;
 
-                        vFButtonText = "VF";
-                        vTButtonText = "pVT";
+                        systemBrain.vFButtonText = "VF";
+                        systemBrain.vTButtonText = "pVT";
 
                         global.log = '';
 
-                        ripORroscStatus = false;
+                        ripOrRoscStatus = false;
 
 
                         setState(() {});
 
                         Navigator.push(
                             context, MaterialPageRoute(builder: (context) {
-                          return WelcomeScreen();
+                          return const WelcomeScreen();
                         }));
                       }
                   )
@@ -1282,14 +1285,14 @@ class MainFrameState extends State<MainFrame> with SingleTickerProviderStateMixi
 
     final systemBrain = Provider.of<SystemBrain>(context,listen: false);
     final String sendLogText = ('''
-Arrest start time: ${global.startDate} at ${global.startTime} 
+Arrest start time: ${systemBrain.startDate} at ${systemBrain.startTime} 
 
 Number of cycles: ${systemBrain.cycleCounter.toString()}
 Number of non-shockable cycles: ${systemBrain.nonShockableCounter.toString()}
-Number of shockable cycles: ${global.shockCounter}
+Number of shockable cycles: ${systemBrain.shockCounter}
 Number of adrenaline given: ${systemBrain.adrenalineCounter}
 Number of amiodarone given: ${systemBrain.amiodaroneCounter}
-                      ''' + "\n" + "Events Summary: \n" + global.log);
+                      ''' + '\n' + 'Events Summary: \n' + global.log);
 
     Share.share(sendLogText);
   }

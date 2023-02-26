@@ -10,13 +10,28 @@ import 'main_frame.dart';
 class SystemBrain extends ChangeNotifier
 {
 
+  String? startTime = TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0');
+
+  String startDate = '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}';
+
+  String timeNow = TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0');
+
+  String? callOutTime;
+  int? roscCounter;
+
   int cycleCounter = 0;
   int adrenalineCounter = 0;
   int adrenalineCycle = 0;
   int amiodaroneCycle = 0;
   int amiodaroneCounter = 0;
 
+  int adrenalineCycleSavedState = 0;
+  int amiodaroneCycleSavedState = 0;
+
+  int specialAmiodaroneRequirement = 0;
+
   int nonShockableCounter = 0;
+  int shockCounter = 0;
 
   bool adrenalineButtonActive = false;
   bool amiodaroneButtonActive = false;
@@ -34,13 +49,42 @@ class SystemBrain extends ChangeNotifier
   bool iGelPresent = false;
   bool eTTubePresent = false;
 
+  String currentAirwayLogText = "";
+
   var accessCounterList = [0,0,0];
   var accessCounterStrings = ["Small bore cannula", "Large bore cannula", "Intraosseous access"];
   var accessBooleanList = [false,false,false];
   int unsuccessfulAccessCounter = 0;
 
+  String currentAccessLogText = "";
 
+  String entryPaneText = " ";
+  String lastLogRemoveText = "";
 
+  int lastLogEntry = 0;
+
+  bool reArrestAdrenalineKeepActive = false;
+  bool reArrestAmiodaroneKeepActive = false;
+  bool rhythmButtonActiveMasterSwitch = true;
+
+  bool roscRIPButtonActive = true;
+  bool undoEventButtonActive = false;
+  bool vTVFVisible = true;
+  bool shockButtonVisible = false;
+
+  bool twoMinuteTimerTextVisibility = false;
+
+  bool vFPressed = false;
+  bool vTPressed = false;
+
+  String amiodaroneButtonText = "";
+
+  String vFButtonText = "VF";
+  String vTButtonText = "pVT";
+
+  int threeShockCounter = 0;
+
+  bool? threeShockTherapyInProgress;
 
 
   //region
@@ -368,7 +412,7 @@ class SystemBrain extends ChangeNotifier
         output = ("$output${accessCounterStrings[i]} x ${accessCounterList[i]}\n");
       }
     }
-    global.currentAccessLogText = output;
+    currentAccessLogText = output;
 
     notifyListeners();
   }
@@ -389,9 +433,9 @@ class SystemBrain extends ChangeNotifier
         adrenalineCycle = 1;
         adrenalineButtonActive = false;
 
-        global.log = '${global.log}\n${global.timeNow} - Adrenaline x$adrenalineCounter given';
+        global.log = '${global.log}\n$timeNow - Adrenaline x$adrenalineCounter given';
 
-        global.lastLogEntry = 2;
+        lastLogEntry = 2;
         undoEventButtonActive = true;
 
         notifyListeners();
@@ -405,7 +449,7 @@ class SystemBrain extends ChangeNotifier
   } // function which is called when the adrenaline button is pressed
 
   void adrenalineButtonActivation() {
-    if (global.shockCounter >= 2 || cycleCounter > global.shockCounter ||
+    if (shockCounter >= 2 || cycleCounter > shockCounter ||
         adrenalineCounter > 1 || nonShockableCounter > 0) {
 
       //TODO: setState removed - needs to be re-added
@@ -435,19 +479,19 @@ class SystemBrain extends ChangeNotifier
     {
       if (oPAPresent == true)
       {
-        global.currentAirwayLogText = "Nasopharyngeal Airway and Oropharyngeal Airway";
+        currentAirwayLogText = "Nasopharyngeal Airway and Oropharyngeal Airway";
       }
       else if (iGelPresent == true)
       {
-        global.currentAirwayLogText = "Nasopharyngeal Airway and Laryngeal Mask/iGel Airway";
+        currentAirwayLogText = "Nasopharyngeal Airway and Laryngeal Mask/iGel Airway";
       }
       else if (eTTubePresent == true)
       {
-        global.currentAirwayLogText = "Nasopharyngeal Airway and Endotracheal Tube Airway";
+        currentAirwayLogText = "Nasopharyngeal Airway and Endotracheal Tube Airway";
       }
       else
       {
-        global.currentAirwayLogText = "Nasopharyngeal Airway ";
+        currentAirwayLogText = "Nasopharyngeal Airway ";
       }
     }
 
@@ -455,19 +499,19 @@ class SystemBrain extends ChangeNotifier
     {
       if (oPAPresent == true)
       {
-        global.currentAirwayLogText = "Oropharyngeal Airway";
+        currentAirwayLogText = "Oropharyngeal Airway";
       }
       else if (iGelPresent == true)
       {
-        global.currentAirwayLogText = "Laryngeal Mask/iGel Airway";
+        currentAirwayLogText = "Laryngeal Mask/iGel Airway";
       }
       else if (eTTubePresent == true)
       {
-        global.currentAirwayLogText = "Endotracheal Tube Airway";
+        currentAirwayLogText = "Endotracheal Tube Airway";
       }
       else
       {
-        global.currentAirwayLogText = "";
+        currentAirwayLogText = "";
       }
 
     }
@@ -479,15 +523,15 @@ class SystemBrain extends ChangeNotifier
   void amiodaroneButtonActivation() {
     amiodaroneCycleSavedState = amiodaroneCycle;
 
-    if (global.shockCounter == 2 || amiodaroneCycle == 2 ||
-        global.specialAmiodaroneRequirement == 1 ||
-        global.specialAmiodaroneRequirement == 2)
+    if (shockCounter == 2 || amiodaroneCycle == 2 ||
+        specialAmiodaroneRequirement == 1 ||
+        specialAmiodaroneRequirement == 2)
 
     {
       //TODO: Set state removed here need to redo
         amiodaroneButtonActive = true;
 
-        if (global.specialAmiodaroneRequirement == 2) {
+        if (specialAmiodaroneRequirement == 2) {
           amiodaroneCycle = 2;
         }
 
@@ -506,13 +550,13 @@ class SystemBrain extends ChangeNotifier
 
     else {
     //NOTE SET STATE REMOVED HERE
-        global.specialAmiodaroneRequirement = 0;
+        specialAmiodaroneRequirement = 0;
         amiodaroneCounter++;
         amiodaroneCycle++;
         amiodaroneButtonActive = false;
-        global.log = '${global.log}\n${global.timeNow} - Amiodarone x$amiodaroneCounter given';
+        global.log = '${global.log}\n$timeNow - Amiodarone x$amiodaroneCounter given';
 
-        global.lastLogEntry = 3;
+        lastLogEntry = 3;
         undoEventButtonActive = true;
         amiodaroneButtonText = "";
 
@@ -545,10 +589,7 @@ class SystemBrain extends ChangeNotifier
       //startTwoMinuteTimer();
       adrenalineButtonActivation();
 
-      global.log = global.log + '\n' + '\n'
-
-
-          + global.timeNow + ' - Cycle ' + cycleCounter.toString() + ":";
+      global.log = '${global.log}\n\n$timeNow - Cycle $cycleCounter:';
 
 
     startCPRSoundPlayer(context);
@@ -668,13 +709,13 @@ class SystemBrain extends ChangeNotifier
             rhythmButtonActiveMasterSwitch = true;
             vTButtonText = "VT (1)";
             vFButtonText = "pVF (1)";
-            global.log = '${global.log}\n${global.timeNow} - Initial 3x shock therapy 1/3 given';
+            global.log = '${global.log}\n$timeNow - Initial 3x shock therapy 1/3 given';
 
             if (vFPressed == true) {
-              global.lastLogEntry = 26;
+              lastLogEntry = 26;
             }
             else {
-              global.lastLogEntry = 27;
+              lastLogEntry = 27;
             }
           }
           else if (threeShockCounter == 2) {
@@ -683,13 +724,13 @@ class SystemBrain extends ChangeNotifier
             rhythmButtonActiveMasterSwitch = true;
             vTButtonText = "pVT (2)";
             vFButtonText = "VF (2)";
-            global.log = '${global.log}\n${global.timeNow} - Initial 3x shock therapy 2/3 given';
+            global.log = '${global.log}\n$timeNow - Initial 3x shock therapy 2/3 given';
 
             if (vFPressed == true) {
-              global.lastLogEntry = 28;
+              lastLogEntry = 28;
             }
             else {
-              global.lastLogEntry = 29;
+              lastLogEntry = 29;
             }
           }
           else if (threeShockCounter == 3) {
@@ -699,29 +740,29 @@ class SystemBrain extends ChangeNotifier
             vTButtonText = "pVT";
             vFButtonText = "VF";
             threeShockTherapyInProgress = false;
-            global.log = '${global.log}\n${global.timeNow} - Initial 3x shock therapy 3/3 given';
+            global.log = '${global.log}\n$timeNow - Initial 3x shock therapy 3/3 given';
 
             shockFunction(context);
 
             global.log = global.log.replaceAll(
                 global.log.substring((global.log.length - (('\n'
-                    + global.timeNow + ' - Shock x ' +
-                    global.shockCounter.toString() +
+                    + timeNow + ' - Shock x ' +
+                    shockCounter.toString() +
                     ' delivered' + '\n' + '\n'
-                    + global.timeNow + ' - Cycle ' +
+                    + timeNow + ' - Cycle ' +
                     cycleCounter.toString() +
                     ":").length))), "");
 
             global.log = global.log + '\n' + '\n'
-                + global.timeNow + ' - Cycle ' +
+                + timeNow + ' - Cycle ' +
                 cycleCounter.toString() +
                 ":";
 
             if (vFPressed == true) {
-              global.lastLogEntry = 30;
+              lastLogEntry = 30;
             }
             else {
-              global.lastLogEntry = 31;
+              lastLogEntry = 31;
             }
           }
           else
@@ -736,7 +777,7 @@ class SystemBrain extends ChangeNotifier
           adrenalineCycleSavedState = adrenalineCycle;
           adrenalineButtonActivation();
           amiodaroneButtonActivation();
-          global.shockCounter++;
+          shockCounter++;
           cycleCounter++;
           rhythmButtonActiveMasterSwitch = true;
           shockButtonVisible = false;
@@ -744,13 +785,13 @@ class SystemBrain extends ChangeNotifier
           startTwoMinuteTimerOnly(context);
           //startTwoMinuteTimer();
           global.log = global.log + '\n'
-              + global.timeNow + ' - Shock x ' +
-              global.shockCounter.toString() +
+              + timeNow + ' - Shock x ' +
+              shockCounter.toString() +
               ' delivered' + '\n' + '\n'
-              + global.timeNow + ' - Cycle ' + cycleCounter.toString() +
+              + timeNow + ' - Cycle ' + cycleCounter.toString() +
               ":";
 
-          global.lastLogEntry = 1;
+          lastLogEntry = 1;
 
           undoEventButtonActive = true;
 
@@ -799,7 +840,7 @@ class SystemBrain extends ChangeNotifier
 
   void undoEvent(context) {
     for (int i = 1; i < 36; i++) {
-      if (global.lastLogEntry == i) {
+      if (lastLogEntry == i) {
 
         //TODO: setstate removed here - also needs reinstating
         //   lastLogRemoveText = global.log.substring(
@@ -811,7 +852,7 @@ class SystemBrain extends ChangeNotifier
       }
     }
     lastLogRemoveText = "";
-    global.lastLogEntry = 0;
+    lastLogEntry = 0;
     undoEventButtonActive = false;
 
     notifyListeners();

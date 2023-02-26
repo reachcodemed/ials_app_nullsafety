@@ -19,29 +19,29 @@ void startCPRSoundPlayer (context)
   {
     playSound('adrenaline');
   }
-  else if ((systemBrain.adrenalineButtonActive == true && systemBrain.amiodaroneButtonActive == true && global.shockCounter == 3)||(global.specialAmiodaroneRequirement == 1 && systemBrain.adrenalineButtonActive == true))
+  else if ((systemBrain.adrenalineButtonActive == true && systemBrain.amiodaroneButtonActive == true && systemBrain.shockCounter == 3)||(systemBrain.specialAmiodaroneRequirement == 1 && systemBrain.adrenalineButtonActive == true))
   {
     playSound('adrAndami');
-    amiodaroneButtonText = "300 mg";
+    systemBrain.amiodaroneButtonText = "300 mg";
   }
-  else if ((systemBrain.adrenalineButtonActive == true && systemBrain.amiodaroneButtonActive == true && systemBrain.amiodaroneCycle == 2)|| (global.specialAmiodaroneRequirement == 2&& systemBrain.adrenalineButtonActive == true))
+  else if ((systemBrain.adrenalineButtonActive == true && systemBrain.amiodaroneButtonActive == true && systemBrain.amiodaroneCycle == 2)|| (systemBrain.specialAmiodaroneRequirement == 2&& systemBrain.adrenalineButtonActive == true))
     {
     playSound('adrAndami2');
-    amiodaroneButtonText = "150 mg";
+    systemBrain.amiodaroneButtonText = "150 mg";
   }
-  else if ((systemBrain.adrenalineButtonActive == false && global.shockCounter == 3 && systemBrain.amiodaroneButtonActive == true)||(global.specialAmiodaroneRequirement == 1 && systemBrain.adrenalineButtonActive == false))
+  else if ((systemBrain.adrenalineButtonActive == false && systemBrain.shockCounter == 3 && systemBrain.amiodaroneButtonActive == true)||(systemBrain.specialAmiodaroneRequirement == 1 && systemBrain.adrenalineButtonActive == false))
   {
     playSound('amiodarone300');
-    amiodaroneButtonText = "300 mg";
+    systemBrain.amiodaroneButtonText = "300 mg";
   }
 
-  else if ((systemBrain.adrenalineButtonActive == false && systemBrain.amiodaroneCycle == 2 && systemBrain.amiodaroneButtonActive == true)||(global.specialAmiodaroneRequirement == 1 && systemBrain.adrenalineButtonActive == false))
+  else if ((systemBrain.adrenalineButtonActive == false && systemBrain.amiodaroneCycle == 2 && systemBrain.amiodaroneButtonActive == true)||(systemBrain.specialAmiodaroneRequirement == 1 && systemBrain.adrenalineButtonActive == false))
   {
     playSound('amiodarone150');
-    amiodaroneButtonText = "150 mg";
+    systemBrain.amiodaroneButtonText = "150 mg";
   }
 
-  else if (threeShockTherapyInProgress == false && systemBrain.adrenalineButtonActive == true && systemBrain.amiodaroneButtonActive == false)
+  else if (systemBrain.threeShockTherapyInProgress == false && systemBrain.adrenalineButtonActive == true && systemBrain.amiodaroneButtonActive == false)
   {
 
   }
@@ -52,7 +52,7 @@ void startCPRSoundPlayer (context)
       {
 
       }
-    else if (threeShockTherapyInProgress == true)
+    else if (systemBrain.threeShockTherapyInProgress == true)
       {
 
       }

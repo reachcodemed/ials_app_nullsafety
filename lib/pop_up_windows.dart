@@ -240,8 +240,7 @@ class AccessPopUp
                                   setModalState((){
                                     systemBrain.accessCounterList[0]++;
 
-                                    global.log = global.log + '\n' + global.timeNow +
-                                        ' - Small Bore Cannula Inserted';
+                                    global.log = '${global.log}\n${systemBrain.timeNow} - Small Bore Cannula Inserted';
                                     systemBrain.accessBooleanList[0] = true;
                                   });
 
@@ -252,12 +251,10 @@ class AccessPopUp
                                   setModalState((){
                                     systemBrain.accessCounterList[0]--;
                                     if (systemBrain.accessCounterList[0] > 0) {
-                                      global.log = global.log + '\n' + global.timeNow +
-                                          ' - Small Bore Cannula Removed';
+                                      global.log = '${global.log}\n${systemBrain.timeNow} - Small Bore Cannula Removed';
                                     }
                                     else if (systemBrain.accessCounterList[0] == 0) {
-                                      global.log = global.log + '\n' + global.timeNow +
-                                          ' - Small Bore Cannula Removed';
+                                      global.log = '${global.log}\n${systemBrain.timeNow} - Small Bore Cannula Removed';
                                       systemBrain.accessCounterList[0] = 0;
                                       systemBrain.accessBooleanList[0] = false;
                                     }
@@ -280,8 +277,7 @@ class AccessPopUp
                                   setModalState((){
                                     systemBrain.accessCounterList[1]++;
 
-                                    global.log = global.log + '\n' + global.timeNow +
-                                        ' - Large Bore Cannula Inserted';
+                                    global.log = '${global.log}\n${systemBrain.timeNow} - Large Bore Cannula Inserted';
                                     systemBrain.accessBooleanList[1] = true;
                                   });
                                   updateState();
@@ -292,12 +288,10 @@ class AccessPopUp
                                   setModalState((){
                                     systemBrain.accessCounterList[1]--;
                                     if (systemBrain.accessCounterList[1] > 0) {
-                                      global.log = global.log + '\n' + global.timeNow +
-                                          ' - Large Bore Cannula Removed';
+                                      global.log = '${global.log}\n${systemBrain.timeNow} - Large Bore Cannula Removed';
                                     }
                                     else if (systemBrain.accessCounterList[1] == 0) {
-                                      global.log = global.log + '\n' + global.timeNow +
-                                          ' - Large Bore Cannula Removed';
+                                      global.log = '${global.log}\n${systemBrain.timeNow} - Large Bore Cannula Removed';
                                       systemBrain.accessCounterList[1] = 0;
                                       systemBrain.accessBooleanList[1] = false;
                                     }
@@ -321,8 +315,7 @@ class AccessPopUp
                                   setModalState((){
                                     systemBrain.accessCounterList[2]++;
 
-                                    global.log = global.log + '\n' + global.timeNow +
-                                        ' - IO Inserted';
+                                    global.log = '${global.log}\n${systemBrain.timeNow} - IO Inserted';
                                     systemBrain.accessBooleanList[2] = true;
                                   });
                                   updateState();
@@ -333,12 +326,10 @@ class AccessPopUp
                                   setModalState((){
                                     systemBrain.accessCounterList[2]--;
                                     if (systemBrain.accessCounterList[2] > 0) {
-                                      global.log = global.log + '\n' + global.timeNow +
-                                          ' - IO Removed';
+                                      global.log = '${global.log}\n${systemBrain.timeNow} - IO Removed';
                                     }
                                     else if (systemBrain.accessCounterList[2] == 0) {
-                                      global.log = global.log + '\n' + global.timeNow +
-                                          ' - IO Removed';
+                                      global.log = '${global.log}\n${systemBrain.timeNow} - IO Removed';
                                       systemBrain.accessCounterList[2] = 0;
                                       systemBrain.accessBooleanList[2] = false;
                                     }
@@ -361,7 +352,7 @@ class AccessPopUp
                                   setModalState((){
                                     systemBrain.unsuccessfulAccessCounter++;
 
-                                    global.log = global.log+ '\n' + global.timeNow +' - Unsuccessful access attempt';
+                                    global.log = '${global.log}\n${systemBrain.timeNow} - Unsuccessful access attempt';
                                     unsuccessfulAccessPresent = true;
                                   });
                                   updateState();
@@ -479,8 +470,7 @@ class AirwayPopUp
                           if (Provider
                               .of<SystemBrain>(context, listen: false)
                               .nPACounter <= 2) {
-                            global.log = global.log + '\n' + global.timeNow +
-                                ' - Nasopharyngeal Airway Inserted';
+                            global.log = '${global.log}\n${systemBrain.timeNow} - Nasopharyngeal Airway Inserted';
                             Provider
                                 .of<SystemBrain>(context, listen: false)
                                 .nPAPresent = true;
@@ -504,7 +494,7 @@ class AirwayPopUp
                       //
                       //   if (global.nPACounter <=2)
                       //   {
-                      //     global.log = global.log+ '\n' + global.timeNow +' - Nasopharyngeal Airway Inserted';
+                      //     global.log = global.log+ '\n' + systemBrain.timeNow +' - Nasopharyngeal Airway Inserted';
                       //     nPAPresent = true;
                       //     //airwayLogFunction();
                       //   }
@@ -530,15 +520,13 @@ class AirwayPopUp
                           if (Provider
                               .of<SystemBrain>(context, listen: false)
                               .nPACounter > 0) {
-                            global.log = '${global.log}\n${global
-                                .timeNow} - Nasopharyngeal Airway Removed';
+                            global.log = '${global.log}\n${systemBrain.timeNow} - Nasopharyngeal Airway Removed';
                           }
 
                           else if (Provider
                               .of<SystemBrain>(context, listen: false)
                               .nPACounter == 0) {
-                            global.log = global.log + '\n' + global.timeNow +
-                                ' - Nasopharyngeal Airway Removed';
+                            global.log = '${global.log}\n${systemBrain.timeNow} - Nasopharyngeal Airway Removed';
                             Provider
                                 .of<SystemBrain>(context, listen: false)
                                 .nPACounter = 0;
@@ -557,11 +545,11 @@ class AirwayPopUp
                       //   global.nPACounter--;
                       //   if (global.nPACounter >0)
                       //   {
-                      //     global.log = global.log+ '\n' + global.timeNow +' - Nasopharyngeal Airway Removed';
+                      //     global.log = global.log+ '\n' + systemBrain.timeNow +' - Nasopharyngeal Airway Removed';
                       //   }
                       //   else if(global.nPACounter == 0)
                       //   {
-                      //     global.log = global.log+ '\n' + global.timeNow +' - Nasopharyngeal Airway Removed';
+                      //     global.log = global.log+ '\n' + systemBrain.timeNow +' - Nasopharyngeal Airway Removed';
                       //     global.nPACounter = 0;
                       //     nPAPresent = false;
                       //   }
@@ -597,8 +585,7 @@ class AirwayPopUp
                           systemBrain.oPAPresent = true;
                           systemBrain.iGelPresent = false;
                           systemBrain.eTTubePresent = false;
-                          global.log = global.log + '\n' + global.timeNow +
-                              ' - Oropharyngeal Airway Inserted';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - Oropharyngeal Airway Inserted';
 
                         }
 
@@ -617,8 +604,7 @@ class AirwayPopUp
                         {
                           systemBrain.oPACounter = 0;
                           systemBrain.oPAPresent = false;
-                          global.log = global.log + '\n' + global.timeNow +
-                              ' - Oropharyngeal Airway Removed';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - Oropharyngeal Airway Removed';
 
                         }
                         else
@@ -647,8 +633,7 @@ class AirwayPopUp
                           systemBrain.oPAPresent = false;
                           systemBrain.iGelPresent = true;
                           systemBrain.eTTubePresent = false;
-                          global.log = global.log + '\n' + global.timeNow +
-                              ' - Laryngeal Mask Airway/iGel Inserted';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - Laryngeal Mask Airway/iGel Inserted';
 
                         }
 
@@ -669,7 +654,7 @@ class AirwayPopUp
                       //   {
                       //     global.iGelCounter = 0;
                       //     iGelPresent = false;
-                      //     global.log = global.log + '\n' + global.timeNow +
+                      //     global.log = global.log + '\n' + systemBrain.timeNow +
                       //         ' - Laryngeal Mask Airway/iGel Removed';
                       //
                       //
@@ -702,7 +687,7 @@ class AirwayPopUp
                       //     oPAPresent = false;
                       //     iGelPresent = false;
                       //     eTTubePresent = true;
-                      //     global.log = global.log + '\n' + global.timeNow +
+                      //     global.log = global.log + '\n' + systemBrain.timeNow +
                       //         ' - Endotracheal Tube Inserted';
                       //
                       //   }
@@ -722,7 +707,7 @@ class AirwayPopUp
                       //   {
                       //     global.eTTubeCounter= 0;
                       //     eTTubePresent = false;
-                      //     global.log = global.log + '\n' + global.timeNow +
+                      //     global.log = global.log + '\n' + systemBrain.timeNow +
                       //         ' - Endotracheal Tube Removed';
                       //
                       //   }
@@ -766,277 +751,281 @@ class DrugDrawer
 {
   mainBottomSheet (BuildContext context)
   {
+    final systemBrain = Provider.of<SystemBrain>(context, listen: false);
+
     showModalBottomSheet(
         context: context,
-        backgroundColor: Colors.transparent,
-        isScrollControlled: false,
+        isScrollControlled: true,
         isDismissible: false,
-        builder: (context)
-
+        backgroundColor: Colors.transparent,
+        builder: (_)
         {
-          return DraggableScrollableSheet(
-            initialChildSize: 0.8,
-            minChildSize: 0.6,
-            maxChildSize: 1.0,
-            builder:(_,controller)=>
-            StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
-                  return Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(13), topRight: Radius.circular(13),),
-                      color: Colors.white,
-                      ),
+          return ListenableProvider.value(
+            value: systemBrain,
+            child: DraggableScrollableSheet(
+              initialChildSize: 0.8,
+              minChildSize: 0.6,
+              maxChildSize: 1.0,
+              builder:(_,controller)=>
+              StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setState) {
+                    return Container(
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(13), topRight: Radius.circular(13),),
+                        color: Colors.white,
+                        ),
 
-                    child: ListView(
-                      controller: controller,
-                      //mainAxisSize: MainAxisSize.min,
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>
-                        [
-                          const SizedBox(height:5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: const [
+                      child: ListView(
+                        controller: controller,
+                        //mainAxisSize: MainAxisSize.min,
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>
+                          [
+                            const SizedBox(height:5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
 
-                              Icon(CupertinoIcons.arrow_down,
-                                color: Colors.grey,size:20,),
-                              Icon(CupertinoIcons.hand_draw,
-                                color: Colors.grey,size:20,),
+                                Icon(CupertinoIcons.arrow_down,
+                                  color: Colors.grey,size:20,),
+                                Icon(CupertinoIcons.hand_draw,
+                                  color: Colors.grey,size:20,),
 
-                            ],
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: AutoSizeText('Tap to add a drug',
-                              textAlign: TextAlign.center,
-                              style:
-                                TextStyle(
-                                  color: Colors.grey,
-                                  fontStyle: FontStyle.italic,
-
-                              ),
-                              maxFontSize: 15.0,
-                              maxLines: 1,
-                              minFontSize: 10.0,
+                              ],
                             ),
-                          ),
-                          PopUpWindowTile(
-                            descriptor: 'Hartmann\'s solution (IV fluid)',
-                            imageStringPath: 'images/Fluids.png',
-                            counter: 0,
-                            tileActive: false,
-                            //tileActive: hartmannsPresent,
-                            addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow + ' - Hartmann\'s solution (IV fluid) administered';
-                                global.lastLogEntry = 13;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
+                            const Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: AutoSizeText('Tap to add a drug',
+                                textAlign: TextAlign.center,
+                                style:
+                                  TextStyle(
+                                    color: Colors.grey,
+                                    fontStyle: FontStyle.italic,
 
-
-                          ),
-                          PopUpWindowTile(
-                              descriptor: '0.9% sodium chloride (IV fluid bolus)',
+                                ),
+                                maxFontSize: 15.0,
+                                maxLines: 1,
+                                minFontSize: 10.0,
+                              ),
+                            ),
+                            PopUpWindowTile(
+                              descriptor: 'Hartmann\'s solution (IV fluid)',
                               imageStringPath: 'images/Fluids.png',
                               counter: 0,
                               tileActive: false,
                               //tileActive: hartmannsPresent,
                               addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - 0.9% sodium chloride (IV fluid bolus) administered';
-                               global.lastLogEntry = 14;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
-
-                          ),
-                          PopUpWindowTile(
-                              descriptor: 'Glucose (10%) 100ml bolus',
-                              imageStringPath: 'images/Fluids.png',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Glucose (10%) 100ml bolus administered';
-                               global.lastLogEntry = 15;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
-
-                          ),
-
-                          PopUpWindowTile(
-                              descriptor: 'Sodium bicarbonate 50mls 8.4% (50mmol)',
-                              imageStringPath: 'images/Fluids.png',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Sodium bicarbonate 50mls 8.4% (50mmol) administered';
-                               global.lastLogEntry = 16;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
-
-                          ),
-
-                          PopUpWindowTile(
-                              descriptor: 'Magnesium Sulphate 8mmol/2g in 100ml',
-                              imageStringPath: 'images/Fluids.png',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Magnesium Sulphate 8mmol/2g in 100ml administered';
-                                global.lastLogEntry = 17;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
-
-                          ),
-
-                          PopUpWindowTile(
-                              counter: 0,
-                              descriptor: 'Alteplase 50mg IV bolus',
-                              imageStringPath: 'images/Injection.png',
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                              global.log = global.log+ '\n' + global.timeNow +' - Alteplase 50mg IV bolus administered';
-                             global.lastLogEntry = 18;
-                              undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Hartmann\'s solution (IV fluid) administered';
+                                  systemBrain.lastLogEntry = 13;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
 
 
-                          ),
+                            ),
+                            PopUpWindowTile(
+                                descriptor: '0.9% sodium chloride (IV fluid bolus)',
+                                imageStringPath: 'images/Fluids.png',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - 0.9% sodium chloride (IV fluid bolus) administered';
+                                 systemBrain.lastLogEntry = 14;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
+
+                            ),
+                            PopUpWindowTile(
+                                descriptor: 'Glucose (10%) 100ml bolus',
+                                imageStringPath: 'images/Fluids.png',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Glucose (10%) 100ml bolus administered';
+                                 systemBrain.lastLogEntry = 15;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
+
+                            ),
+
+                            PopUpWindowTile(
+                                descriptor: 'Sodium bicarbonate 50mls 8.4% (50mmol)',
+                                imageStringPath: 'images/Fluids.png',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Sodium bicarbonate 50mls 8.4% (50mmol) administered';
+                                 systemBrain.lastLogEntry = 16;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
+
+                            ),
+
+                            PopUpWindowTile(
+                                descriptor: 'Magnesium Sulphate 8mmol/2g in 100ml',
+                                imageStringPath: 'images/Fluids.png',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Magnesium Sulphate 8mmol/2g in 100ml administered';
+                                  systemBrain.lastLogEntry = 17;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
+
+                            ),
+
+                            PopUpWindowTile(
+                                counter: 0,
+                                descriptor: 'Alteplase 50mg IV bolus',
+                                imageStringPath: 'images/Injection.png',
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                global.log = '${global.log}\n${systemBrain.timeNow} - Alteplase 50mg IV bolus administered';
+                               systemBrain.lastLogEntry = 18;
+                                systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
 
 
-                          PopUpWindowTile(
-                              descriptor: 'Calcium Chloride 10mls of 10%',
-                              imageStringPath: 'images/Injection.png',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Calcium Chloride 10mls of 10% administered';
-                                global.lastLogEntry = 19;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
-                          ),
-
-                          PopUpWindowTile(
-                              descriptor: 'Glucagon 1mg',
-                              imageStringPath: 'images/Injection.png',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Glucagon 1mg administered';
-                                global.lastLogEntry = 20;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
+                            ),
 
 
-                          ),
+                            PopUpWindowTile(
+                                descriptor: 'Calcium Chloride 10mls of 10%',
+                                imageStringPath: 'images/Injection.png',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Calcium Chloride 10mls of 10% administered';
+                                  systemBrain.lastLogEntry = 19;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
+                            ),
 
-                          PopUpWindowTile(
-                              descriptor: 'Insulin/Dextrose',
-                              imageStringPath: 'images/med.jpg',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Insulin/Dextrose administered';
-                                global.lastLogEntry = 21;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
+                            PopUpWindowTile(
+                                descriptor: 'Glucagon 1mg',
+                                imageStringPath: 'images/Injection.png',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Glucagon 1mg administered';
+                                  systemBrain.lastLogEntry = 20;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
 
-                          ),
+
+                            ),
+
+                            PopUpWindowTile(
+                                descriptor: 'Insulin/Dextrose',
+                                imageStringPath: 'images/med.jpg',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Insulin/Dextrose administered';
+                                  systemBrain.lastLogEntry = 21;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
+
+                            ),
 
 
 ///TO DO: Create images for nebulisers
-                          ///
-                          ///
-                          PopUpWindowTile(
-                              descriptor: 'Ipratropium bromide 500 mcg',
-                              imageStringPath: 'images/med.jpg',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Ipratropium bromide 500 mcg administered';
-                                global.lastLogEntry = 22;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
+                            ///
+                            ///
+                            PopUpWindowTile(
+                                descriptor: 'Ipratropium bromide 500 mcg',
+                                imageStringPath: 'images/med.jpg',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Ipratropium bromide 500 mcg administered';
+                                  systemBrain.lastLogEntry = 22;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
 
-                          ),
-                          PopUpWindowTile(
-                              descriptor: 'Salbutamol nebuliser 5mg',
-                              imageStringPath: 'images/med.jpg',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Salbutamol nebuliser 5mg administered';
-                                global.lastLogEntry = 23;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
+                            ),
+                            PopUpWindowTile(
+                                descriptor: 'Salbutamol nebuliser 5mg',
+                                imageStringPath: 'images/med.jpg',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Salbutamol nebuliser 5mg administered';
+                                  systemBrain.lastLogEntry = 23;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
 
-                          ),
+                            ),
 
-                          PopUpWindowTile(
-                              descriptor: 'Naloxone 400mcg',
-                              imageStringPath: 'images/Injection.png',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Naloxone 400mcg administered';
-                                global.lastLogEntry = 24;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
+                            PopUpWindowTile(
+                                descriptor: 'Naloxone 400mcg',
+                                imageStringPath: 'images/Injection.png',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Naloxone 400mcg administered';
+                                  systemBrain.lastLogEntry = 24;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
 
-                          ),
-                          PopUpWindowTile(
-                              descriptor: 'Tranexamic Acid 1g',
-                              imageStringPath: 'images/Injection.png',
-                              counter: 0,
-                              tileActive: false,
-                              //tileActive: hartmannsPresent,
-                              addFunction: ()
-                              {
-                                global.log = global.log+ '\n' + global.timeNow +' - Tranexamic Acid 1g administered';
-                                global.lastLogEntry = 25;
-                                undoEventButtonActive = true;
-                              },
-                            removeFunction: (){},
+                            ),
+                            PopUpWindowTile(
+                                descriptor: 'Tranexamic Acid 1g',
+                                imageStringPath: 'images/Injection.png',
+                                counter: 0,
+                                tileActive: false,
+                                //tileActive: hartmannsPresent,
+                                addFunction: ()
+                                {
+                                  global.log = '${global.log}\n${systemBrain.timeNow} - Tranexamic Acid 1g administered';
+                                  systemBrain.lastLogEntry = 25;
+                                  systemBrain.undoEventButtonActive = true;
+                                },
+                              removeFunction: (){},
 
-                          ),
+                            ),
 
 
-                        ]
-                    ),
-                  );
-                } //builder
+                          ]
+                      ),
+                    );
+                  } //builder
+              ),
             ),
           ); //showModalBottomSheet
 

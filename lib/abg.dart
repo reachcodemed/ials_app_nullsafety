@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:ials_app_nullsafety/fixed_page_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:ials_app_nullsafety/globalVariables.dart' as global;
+import 'package:ials_app_nullsafety/system_brain.dart';
 import 'package:ials_app_nullsafety/welcome_screen.dart';
+import 'package:provider/provider.dart';
 
 class ABG extends StatefulWidget {
 
@@ -27,7 +29,7 @@ class _ABGState extends State<ABG> {
 
   int? proceed;
 
-  String outputTextArea = " ";
+  String outputTextArea = ' ';
 
   TextEditingController phTextField = TextEditingController();
   TextEditingController pO2TextField = TextEditingController();
@@ -41,6 +43,9 @@ class _ABGState extends State<ABG> {
 
   @override
   Widget build(BuildContext context) {
+
+    final systemBrain = Provider.of<SystemBrain>(context, listen: false);
+    
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: kPanelBackgroundColour,
@@ -105,7 +110,7 @@ class _ABGState extends State<ABG> {
                                                 Column(
                                                   children: [
                                                     ABGInputPane(
-                                                      inputPaneText: "pH",
+                                                      inputPaneText: 'pH',
                                                       fontSize: 15,
                                                       textEditingController: phTextField,
                                                       textInputFunction:(value)
@@ -115,7 +120,7 @@ class _ABGState extends State<ABG> {
                                                       },
                                                     ),
                                                     ABGInputPane(
-                                                      inputPaneText: "pO2",
+                                                      inputPaneText: 'pO2',
                                                       fontSize: 15,
                                                       textEditingController: pO2TextField,
                                                       textInputFunction:(value)
@@ -125,7 +130,7 @@ class _ABGState extends State<ABG> {
                                                       },
                                                     ),
                                                     ABGInputPane(
-                                                      inputPaneText: "pCO2",
+                                                      inputPaneText: 'pCO2',
                                                       fontSize: 15,
                                                       textEditingController: pCO2TextField,
                                                       textInputFunction:(value)
@@ -135,7 +140,7 @@ class _ABGState extends State<ABG> {
                                                       },
                                                     ),
                                                     ABGInputPane(
-                                                      inputPaneText: "HCO3",
+                                                      inputPaneText: 'HCO3',
                                                       fontSize: 15,
                                                       textEditingController: hCO3TextField,
                                                       textInputFunction:(value)
@@ -160,7 +165,7 @@ class _ABGState extends State<ABG> {
                                                 Column(
                                                   children: [
                                                     ABGInputPane(
-                                                      inputPaneText: "BE",
+                                                      inputPaneText: 'BE',
                                                       fontSize: 15,
                                                       textEditingController: baseExcessTextField,
                                                       textInputFunction:(value)
@@ -170,7 +175,7 @@ class _ABGState extends State<ABG> {
                                                       },
                                                     ),
                                                     ABGInputPane(
-                                                      inputPaneText: "K+",
+                                                      inputPaneText: 'K+',
                                                       fontSize: 15,
                                                       textEditingController: potassiumTextField,
                                                       textInputFunction:(valueK)
@@ -180,7 +185,7 @@ class _ABGState extends State<ABG> {
                                                       },
                                                     ),
                                                     ABGInputPane(
-                                                      inputPaneText: "Lac",
+                                                      inputPaneText: 'Lac',
                                                       fontSize: 15,
                                                       textEditingController: lactateTextField,
                                                       textInputFunction:(value)
@@ -190,7 +195,7 @@ class _ABGState extends State<ABG> {
                                                       },
                                                     ),
                                                     ABGInputPane(
-                                                      inputPaneText: "Glu",
+                                                      inputPaneText: 'Glu',
                                                       fontSize: 15,
                                                       textEditingController: glucoseTextField,
                                                       textInputFunction:(value)
@@ -258,7 +263,7 @@ class _ABGState extends State<ABG> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ABGButtons(
-                      abgButtonText: "Interpret",
+                      abgButtonText: 'Interpret',
                       abgButtonColour: kInterventionsButtonActiveColour,
                       abgButtonFunction: ()
                       {
@@ -273,7 +278,7 @@ class _ABGState extends State<ABG> {
 
                     ),
                     ABGButtons(
-                      abgButtonText: "Reset",
+                      abgButtonText: 'Reset',
                       abgButtonColour: kVTVFActiveButtonColour,
                       abgButtonFunction: ()
                       {
@@ -288,7 +293,7 @@ class _ABGState extends State<ABG> {
                         glucose = null;
 
                         setState(() {
-                          outputTextArea = "";
+                          outputTextArea = '';
                         });
 
 
@@ -308,7 +313,7 @@ class _ABGState extends State<ABG> {
                     ),
 
                     ABGButtons(
-                      abgButtonText: "Add to Log",
+                      abgButtonText: 'Add to Log',
                       abgButtonColour: kBlueButtonColour,
                       abgButtonFunction: ()
                       {
@@ -317,16 +322,7 @@ class _ABGState extends State<ABG> {
                           _showMyDialog();
                         }
                         else {
-                          global.log = global.log + "\n"
-                              + global.timeNow + ' - ABG Result: \n'
-                              +"                  "+ "pH: " + phTextField.text
-                              +"\n"+"                  " + "pO2: " + pO2TextField.text +" kPa"
-                              +"\n"+"                  " + "pCO2: " + pCO2TextField.text +" kPa"
-                              +"\n"+"                  " + "HCO3: " + hCO3TextField.text +" mmol/L"
-                              +"\n"+"                  "+ "BE: " + baseExcessTextField.text +" mmol/L"
-                              +"\n"+"                  " + "K+: " + potassiumTextField.text +" mmol/L"
-                              +"\n"+"                  "+ "Lac: " + lactateTextField.text +" mmol/L"
-                              +"\n"+"                  " + "Glu: " + glucoseTextField.text+" mmol/L"
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ABG Result: \n                  pH: ${phTextField.text}\n                  pO2: ${pO2TextField.text} kPa\n                  pCO2: ${pCO2TextField.text} kPa\n                  HCO3: ${hCO3TextField.text} mmol/L\n                  BE: ${baseExcessTextField.text} mmol/L\n                  K+: ${potassiumTextField.text} mmol/L\n                  Lac: ${lactateTextField.text} mmol/L\n                  Glu: ${glucoseTextField.text} mmol/L'
                           ;
                         }
                       },
@@ -361,24 +357,23 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic alkalosis with respiratory compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include: ";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn's syndrome, Milk-alkali syndrome";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypercapnic";
+                'This result demonstrates a Metabolic alkalosis with respiratory compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include: ';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn\'s syndrome, Milk-alkali syndrome';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypercapnic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
               }
             }
             else if (pCO2! < 6 && pCO2! > 4.5) // NORMOCAPNIC
@@ -386,22 +381,21 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic alkalosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn's syndrome, Milk-alkali syndrome";
+                'This result demonstrates a Metabolic alkalosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn\'s syndrome, Milk-alkali syndrome';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
               }
             }
             else // HYPOCAPNIC
@@ -409,38 +403,35 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a mixed Metabolic and Respiratory alkalosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Liver cirrhosis with diuretic use, Hyperemesis gravidarum, Execssive ventilation in COPD";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypocapnic";
+                'This result demonstrates a mixed Metabolic and Respiratory alkalosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Liver cirrhosis with diuretic use, Hyperemesis gravidarum, Execssive ventilation in COPD';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypocapnic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory alkalosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypocapnic";
+                'This result demonstrates a Respiratory alkalosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypocapnic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory alkalosis with metabolic compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypocapnic";
+                'This result demonstrates a Respiratory alkalosis with metabolic compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypocapnic';
               }
             }
           }
@@ -451,31 +442,30 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic alkalosis with respiratory compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn's syndrome, Milk-alkali syndrome";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                'This result demonstrates a Metabolic alkalosis with respiratory compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn\'s syndrome, Milk-alkali syndrome';
+                outputTextArea = '$outputTextArea\n\n';
                 outputTextArea =
-                    outputTextArea + "This patient is hypoxic and hypercapnic";
+                    '${outputTextArea}This patient is hypoxic and hypercapnic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
                 outputTextArea =
-                    outputTextArea + "This patient is hypoxic and hypercapnic";
+                    '${outputTextArea}This patient is hypoxic and hypercapnic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
                 outputTextArea =
-                    outputTextArea + "This patient is hypoxic and hypercapnic";
+                    '${outputTextArea}This patient is hypoxic and hypercapnic';
               }
             }
             else if (pCO2! < 6 && pCO2! > 4.5) // NORMOCAPNIC
@@ -483,28 +473,27 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic alkalosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn's syndrome, Milk-alkali syndrome";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result demonstrates a Metabolic alkalosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn\'s syndrome, Milk-alkali syndrome';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
             }
             else // HYPOCAPNIC
@@ -512,39 +501,36 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a mixed Metabolic and Respiratory alkalosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Liver cirrhosis with diuretic use, Hyperemesis gravidarum, Execssive ventilation in COPD";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result demonstrates a mixed Metabolic and Respiratory alkalosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Liver cirrhosis with diuretic use, Hyperemesis gravidarum, Execssive ventilation in COPD';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory alkalosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result demonstrates a Respiratory alkalosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory alkalosis with metabolic compensation";
+                'This result demonstrates a Respiratory alkalosis with metabolic compensation';
 
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
             }
           }
@@ -555,31 +541,27 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic alkalosis with respiratory compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn's syndrome, Milk-alkali syndrome";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 2 respiratory failure";
+                'This result demonstrates a Metabolic alkalosis with respiratory compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn\'s syndrome, Milk-alkali syndrome';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 2 respiratory failure';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 2 respiratory failure";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 2 respiratory failure';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 2 respiratory failure";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 2 respiratory failure';
               }
             }
             else if (pCO2! < 6 && pCO2! > 4.5) // NORMOCAPNIC
@@ -587,31 +569,27 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic alkalosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn's syndrome, Milk-alkali syndrome";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result demonstrates a Metabolic alkalosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Vomiting/diarrhoea, Loop & thiazide diuretics, Heart failure, Nephrotic syndrome, Conn\'s syndrome, Milk-alkali syndrome';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
             }
             else // HYPOCAPNIC
@@ -619,41 +597,35 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a mixed Metabolic and Respiratory alkalosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Liver cirrhosis with diuretic use, Hyperemesis gravidarum, Execssive ventilation in COPD";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result demonstrates a mixed Metabolic and Respiratory alkalosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Liver cirrhosis with diuretic use, Hyperemesis gravidarum, Execssive ventilation in COPD';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory alkalosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result demonstrates a Respiratory alkalosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory alkalosis with metabolic compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result demonstrates a Respiratory alkalosis with metabolic compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Anxiety, Pain, Hypoxia, Pulmonary embolism, Pneumothorax, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
             }
           }
@@ -667,38 +639,36 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory acidosis with metabolic compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypercapnic";
+                'This result demonstrates a Respiratory acidosis with metabolic compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypercapnic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory acidosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypercapnic";
+                'This result demonstrates a Respiratory acidosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypercapnic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a mixed Metabolic and Respiratory acidosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
+                'This result demonstrates a mixed Metabolic and Respiratory acidosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
                 outputTextArea =
-                    outputTextArea + "Cardiac arrest, Multi-organ failure";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypercapnic";
+                    '${outputTextArea}Cardiac arrest, Multi-organ failure';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypercapnic';
               }
             }
             else if (pCO2! < 6 && pCO2! > 4.5) // NORMOCAPNIC
@@ -706,22 +676,21 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic acidosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison's Disease";
+                'This result demonstrates a Metabolic acidosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison\'s Disease';
               }
             }
             else // HYPOCAPNIC
@@ -729,22 +698,21 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic acidosis with respiratory compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison's Disease";
+                'This result demonstrates a Metabolic acidosis with respiratory compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison\'s Disease';
               }
             }
           }
@@ -755,41 +723,39 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory acidosis with metabolic compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                'This result demonstrates a Respiratory acidosis with metabolic compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
                 outputTextArea =
-                    outputTextArea + "This patient is hypoxic and hypercapnic";
+                    '${outputTextArea}This patient is hypoxic and hypercapnic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory acidosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                'This result demonstrates a Respiratory acidosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
                 outputTextArea =
-                    outputTextArea + "This patient is hypoxic and hypercapnic";
+                    '${outputTextArea}This patient is hypoxic and hypercapnic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a mixed Metabolic and Respiratory acidosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
+                'This result demonstrates a mixed Metabolic and Respiratory acidosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
                 outputTextArea =
-                    outputTextArea + "Cardiac arrest, Multi-organ failure";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                    '${outputTextArea}Cardiac arrest, Multi-organ failure';
+                outputTextArea = '$outputTextArea\n\n';
                 outputTextArea =
-                    outputTextArea + "This patient is hypoxic and hypercapnic";
+                    '${outputTextArea}This patient is hypoxic and hypercapnic';
               }
             }
             else if (pCO2! < 6 && pCO2! > 4.5) // NORMOCAPNIC
@@ -797,28 +763,27 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic acidosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison's Disease";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result demonstrates a Metabolic acidosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison\'s Disease';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
             }
             else // HYPOCAPNIC
@@ -826,28 +791,27 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic acidosis with respiratory compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison's Disease";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                'This result demonstrates a Metabolic acidosis with respiratory compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison\'s Disease';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
             }
           }
@@ -858,41 +822,36 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory acidosis with metabolic compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 2 respiratory failure";
+                'This result demonstrates a Respiratory acidosis with metabolic compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 2 respiratory failure';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Respiratory acidosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 2 respiratory failure";
+                'This result demonstrates a Respiratory acidosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Respiratory depression, Guillain-Barre, Asthma, COPD, Iatrogenic (excessive mechanical ventilation)';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 2 respiratory failure';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a mixed Metabolic and Respiratory acidosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
+                'This result demonstrates a mixed Metabolic and Respiratory acidosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
                 outputTextArea =
-                    outputTextArea + "Cardiac arrest, Multi-organ failure";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is type 2 respiratory failure";
+                    '${outputTextArea}Cardiac arrest, Multi-organ failure';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is type 2 respiratory failure';
               }
             }
             else if (pCO2! < 6 && pCO2! > 4.5) // NORMOCAPNIC
@@ -900,31 +859,27 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic acidosis";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison's Disease";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result demonstrates a Metabolic acidosis';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison\'s Disease';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
             }
             else // HYPOCAPNIC
@@ -932,31 +887,27 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result demonstrates a Metabolic acidosis with respiratory compensation";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea + "Causes include:";
-                outputTextArea = outputTextArea + "\n";
-                outputTextArea = outputTextArea +
-                    "Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison's Disease";
-                outputTextArea = outputTextArea + "\n" + "\n";
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                'This result demonstrates a Metabolic acidosis with respiratory compensation';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}Causes include:';
+                outputTextArea = '$outputTextArea\n';
+                outputTextArea = '${outputTextArea}Diabetic Ketoacidosis, Lactic acidosis, Aspirin overdose, Diarrhoea/Ileostomy, Renal Tubular Acidosis, Addison\'s Disease';
+                outputTextArea = '$outputTextArea\n\n';
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
             }
           }
@@ -969,18 +920,17 @@ class _ABGState extends State<ABG> {
                 {
               if (hCO3! > 26) // HIGH BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is hypercapnic with compensation";
+                outputTextArea = '${outputTextArea}This patient is hypercapnic with compensation';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
-                outputTextArea = outputTextArea + "This patient is hypercapnic";
+                outputTextArea = '${outputTextArea}This patient is hypercapnic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
               }
             }
             else if (pCO2! < 6 && pCO2! > 4.5) // NORMOCAPNIC
@@ -988,19 +938,19 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                    outputTextArea + "This result demonstrates no metabolic or respiratory abnormalities";
+                    '${outputTextArea}This result demonstrates no metabolic or respiratory abnormalities';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
               }
             }
             else // HYPOCAPNIC
@@ -1008,16 +958,16 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                "This result does not fit any pattern. Is this a venous or mixed gas?";
-                outputTextArea = outputTextArea + "\n" + "\n";
+                'This result does not fit any pattern. Is this a venous or mixed gas?';
+                outputTextArea = '$outputTextArea\n\n';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
-                outputTextArea = outputTextArea + "This patient is hypocapnic";
+                outputTextArea = '${outputTextArea}This patient is hypocapnic';
               }
               else // LOW BICARB
                   {
-                outputTextArea = outputTextArea + "This patient is hypocapnic";
+                outputTextArea = '${outputTextArea}This patient is hypocapnic';
               }
             }
           }
@@ -1028,47 +978,47 @@ class _ABGState extends State<ABG> {
               if (hCO3! > 26) // HIGH BICARB
                   {
                 outputTextArea =
-                    outputTextArea + "This patient is hypoxic and hypercapnic";
+                    '${outputTextArea}This patient is hypoxic and hypercapnic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
                 outputTextArea =
-                    outputTextArea + "This patient is hypoxic and hypercapnic";
+                    '${outputTextArea}This patient is hypoxic and hypercapnic';
               }
               else // LOW BICARB
                   {
                 outputTextArea =
-                    outputTextArea + "This patient is hypoxic and hypercapnic";
+                    '${outputTextArea}This patient is hypoxic and hypercapnic';
               }
             }
             else if (pCO2! < 6 && pCO2! > 4.5) // NORMOCAPNIC
                 {
               if (hCO3! > 26) // HIGH BICARB
                   {
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else // LOW BICARB
                   {
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
             }
             else // HYPOCAPNIC
                 {
               if (hCO3! > 26) // HIGH BICARB
                   {
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
               else // LOW BICARB
                   {
-                outputTextArea = outputTextArea + "This patient is hypoxic";
+                outputTextArea = '${outputTextArea}This patient is hypoxic';
               }
             }
           }
@@ -1078,54 +1028,45 @@ class _ABGState extends State<ABG> {
                 {
               if (hCO3! > 26) // HIGH BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is in type 2 respiratory failure";
+                outputTextArea = '${outputTextArea}This patient is in type 2 respiratory failure';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is in type 2 respiratory failure";
+                outputTextArea = '${outputTextArea}This patient is in type 2 respiratory failure';
               }
               else // LOW BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is in type 2 respiratory failure";
+                outputTextArea = '${outputTextArea}This patient is in type 2 respiratory failure';
               }
             }
             else if (pCO2! < 6 && pCO2! > 4.5) // NORMOCAPNIC
                 {
               if (hCO3! > 26) // HIGH BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else // LOW BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
             }
             else // HYPOCAPNIC
                 {
               if (hCO3! > 26) // HIGH BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else if (hCO3! < 26 && hCO3! > 22) // NORMAL BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
               else // LOW BICARB
                   {
-                outputTextArea = outputTextArea +
-                    "This patient is in type 1 respiratory failure";
+                outputTextArea = '${outputTextArea}This patient is in type 1 respiratory failure';
               }
             }
           }
@@ -1133,13 +1074,11 @@ class _ABGState extends State<ABG> {
 
         if (potassium! > 5.3)
         {
-          outputTextArea = outputTextArea +
-              "\n\nThis patient is hyperkalaemic";
+          outputTextArea = '$outputTextArea\n\nThis patient is hyperkalaemic';
         }
         else if (potassium!<3.5)
         {
-          outputTextArea = outputTextArea +
-              "\n\nThis patient is hypokalaemic";
+          outputTextArea = '$outputTextArea\n\nThis patient is hypokalaemic';
         }
 
         else
@@ -1149,13 +1088,11 @@ class _ABGState extends State<ABG> {
 
         if (glucose!> 11)
         {
-          outputTextArea = outputTextArea +
-              "\n\nThis patient is hyperglycaemic";
+          outputTextArea = '$outputTextArea\n\nThis patient is hyperglycaemic';
         }
         else if (glucose! < 4)
         {
-          outputTextArea = outputTextArea +
-              "\n\nThis patient is hypoglycaemic";
+          outputTextArea = '$outputTextArea\n\nThis patient is hypoglycaemic';
         }
         else
         {
@@ -1184,14 +1121,14 @@ class _ABGState extends State<ABG> {
     {
       _showMyDialog();
     }
-    //else if((((baseExcess.toString().contains("0")) || (baseExcess.toString().contains("1")) || (baseExcess.toString().contains("2")) || (baseExcess.toString().contains("3")) || (baseExcess.toString().contains("4")) || (baseExcess.toString().contains("5")) || (baseExcess.toString().contains("6")) || (baseExcess.toString().contains("7")) || (baseExcess.toString().contains("8")) || (baseExcess.toString().contains("9")))) || ((baseExcess.toString().contains("a"))) || ((baseExcess.toString().contains("b"))) || ((baseExcess.toString().contains("c"))) || ((baseExcess.toString().contains("d"))) || ((baseExcess.toString().contains("e"))) || ((baseExcess.toString().contains("f"))) || ((baseExcess.toString().contains("g"))) || ((baseExcess.toString().contains("h"))) || ((baseExcess.toString().contains("i"))) || ((baseExcess.toString().contains("j"))) || ((baseExcess.toString().contains("k"))) || ((baseExcess.toString().contains("l"))) || ((baseExcess.toString().contains("m"))) || ((baseExcess.toString().contains("n"))) || ((baseExcess.toString().contains("o"))) || ((baseExcess.toString().contains("p"))) || ((baseExcess.toString().contains("q"))) || ((baseExcess.toString().contains("r"))) || ((baseExcess.toString().contains("s"))) || ((baseExcess.toString().contains("t"))) || ((baseExcess.toString().contains("u"))) || ((baseExcess.toString().contains("v"))) || ((baseExcess.toString().contains("w"))) || ((baseExcess.toString().contains("x"))) || ((baseExcess.toString().contains("y"))) || ((baseExcess.toString().contains("z"))) || ((baseExcess.toString().contains("/"))) || ((baseExcess.toString().contains(":"))) || ((baseExcess.toString().contains(";"))) || ((baseExcess.toString().contains("("))) || ((baseExcess.toString().contains(")"))) || ((baseExcess.toString().contains("£"))) || ((baseExcess.toString().contains("&"))) || ((baseExcess.toString().contains("@"))) || ((baseExcess.toString().contains(","))) || ((baseExcess.toString().contains("?"))) || ((baseExcess.toString().contains("!"))) || ((baseExcess.toString().contains("'"))) || ((baseExcess.toString().contains("~"))) )
+    //else if((((baseExcess.toString().contains('0')) || (baseExcess.toString().contains('1')) || (baseExcess.toString().contains('2')) || (baseExcess.toString().contains('3')) || (baseExcess.toString().contains('4')) || (baseExcess.toString().contains('5')) || (baseExcess.toString().contains('6')) || (baseExcess.toString().contains('7')) || (baseExcess.toString().contains('8')) || (baseExcess.toString().contains('9')))) || ((baseExcess.toString().contains('a'))) || ((baseExcess.toString().contains('b'))) || ((baseExcess.toString().contains('c'))) || ((baseExcess.toString().contains('d'))) || ((baseExcess.toString().contains('e'))) || ((baseExcess.toString().contains('f'))) || ((baseExcess.toString().contains('g'))) || ((baseExcess.toString().contains('h'))) || ((baseExcess.toString().contains('i'))) || ((baseExcess.toString().contains('j'))) || ((baseExcess.toString().contains('k'))) || ((baseExcess.toString().contains('l'))) || ((baseExcess.toString().contains('m'))) || ((baseExcess.toString().contains('n'))) || ((baseExcess.toString().contains('o'))) || ((baseExcess.toString().contains('p'))) || ((baseExcess.toString().contains('q'))) || ((baseExcess.toString().contains('r'))) || ((baseExcess.toString().contains('s'))) || ((baseExcess.toString().contains('t'))) || ((baseExcess.toString().contains('u'))) || ((baseExcess.toString().contains('v'))) || ((baseExcess.toString().contains('w'))) || ((baseExcess.toString().contains('x'))) || ((baseExcess.toString().contains('y'))) || ((baseExcess.toString().contains('z'))) || ((baseExcess.toString().contains('/'))) || ((baseExcess.toString().contains(':'))) || ((baseExcess.toString().contains(';'))) || ((baseExcess.toString().contains('('))) || ((baseExcess.toString().contains(')'))) || ((baseExcess.toString().contains('£'))) || ((baseExcess.toString().contains('&'))) || ((baseExcess.toString().contains('@'))) || ((baseExcess.toString().contains(','))) || ((baseExcess.toString().contains('?'))) || ((baseExcess.toString().contains('!'))) || ((baseExcess.toString().contains('''))) || ((baseExcess.toString().contains('~'))) )
     //   {
     //     _showMyDialog();
     // }
     else
     {
       proceed = 1;
-      outputTextArea = "";
+      outputTextArea = '';
     }
 
   }

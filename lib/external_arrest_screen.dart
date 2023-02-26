@@ -36,7 +36,7 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
   int? amiodaroneLastCycle = null;
   bool alertText = false;
 
-  List<String> rhythmNames= ["PEA","Asystole","VF","pVT"];
+  List<String> rhythmNames= ['PEA','Asystole','VF','pVT'];
 
 
   @override
@@ -76,20 +76,20 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
             Column(
               children: [
                 ManualArrestInputPane(
-                  starText: "  ",
-                  inputPaneText: "Call out time (HH:MM)?",
+                  starText: '  ',
+                  inputPaneText: 'Call out time (HH:MM)?',
                   tabColour: Colors.yellow[700],
-                  hintTextInput: "HH:MM",
+                  hintTextInput: 'HH:MM',
                   textInputFunction: (value){
                     callOutTime = value;
                   },
 
                 ),
                 ManualArrestInputPane(
-                  starText: " * ",
-                  inputPaneText: "Arrest start time (HH:MM)?",
+                  starText: ' * ',
+                  inputPaneText: 'Arrest start time (HH:MM)?',
                   tabColour: Colors.yellow[700],
-                  hintTextInput: "HH:MM",
+                  hintTextInput: 'HH:MM',
                   textInputFunction: (value){
                     startTime = value;
                   },
@@ -113,10 +113,10 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                 Expanded(child: Container(color: Colors.white),),
 
                 ManualArrestInputPane(
-                  starText: " * ",
-                  inputPaneText: "How many cycles have been completed?",
+                  starText: ' * ',
+                  inputPaneText: 'How many cycles have been completed?',
                   tabColour: Colors.green[500],
-                  hintTextInput: "Cycles",
+                  hintTextInput: 'Cycles',
                   textInputFunction: (value){
                     setState(() {
                       cycleNumber = int.parse(value);
@@ -126,10 +126,10 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                 ),
 
                 ManualArrestInputPane(
-                  starText: " * ",
-                  inputPaneText: "How many shocks delivered?",
+                  starText: ' * ',
+                  inputPaneText: 'How many shocks delivered?',
                   tabColour: Colors.green[500],
-                  hintTextInput: "Shocks",
+                  hintTextInput: 'Shocks',
                   textInputFunction: (value){
                     shockNumber = int.parse(value);
                   },
@@ -164,8 +164,8 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                             child: Container(color: Colors.green[500], width: 1.0,)),
 
                         ManualArrestQuadInputPane(
-                          inputPaneText: "PEA",
-                          hintTextInput: "",
+                          inputPaneText: 'PEA',
+                          hintTextInput: '',
                           fontSize: 11,
                           textInputFunction: (value)
                           {
@@ -173,8 +173,8 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                           },
                         ),
                         ManualArrestQuadInputPane(
-                          inputPaneText: "Asys",
-                          hintTextInput: "",
+                          inputPaneText: 'Asys',
+                          hintTextInput: '',
                           fontSize: 11,
                           textInputFunction: (value)
                           {
@@ -182,8 +182,8 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                           },
                         ),
                         ManualArrestQuadInputPane(
-                          inputPaneText: "VF",
-                          hintTextInput: "",
+                          inputPaneText: 'VF',
+                          hintTextInput: '',
                           fontSize: 11,
                           textInputFunction: (value)
                           {
@@ -191,7 +191,7 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                           },
                         ),
                         ManualArrestQuadInputPane(
-                          inputPaneText: "pVT",
+                          inputPaneText: 'pVT',
                           hintTextInput: '',
                           fontSize: 11,
                           textInputFunction: (value)
@@ -208,10 +208,10 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
 
 
                 ManualArrestInputPane(
-                  starText: "  ",
-                  inputPaneText: "Total number of ROSC",
+                  starText: '  ',
+                  inputPaneText: 'Total number of ROSC',
                   tabColour: Colors.green[500],
-                  hintTextInput: "total ROSC",
+                  hintTextInput: 'total ROSC',
                   textInputFunction: (value){
                     totalROSC = int.parse(value);
                   },
@@ -221,10 +221,10 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                 Expanded(child: Container(color: Colors.white),),
 
                 ManualArrestInputPane(
-                  starText: " * ",
-                  inputPaneText: "How many adrenaline given?",
+                  starText: ' * ',
+                  inputPaneText: 'How many adrenaline given?',
                   tabColour: Colors.red[500],
-                  hintTextInput: "adrenaline",
+                  hintTextInput: 'adrenaline',
                   textInputFunction: (value){
                     totalAdrenalineGiven = int.parse(value);
                   },
@@ -246,10 +246,10 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                 ),
 
                 ManualArrestInputPane(
-                  starText: " * ",
-                  inputPaneText: "How many amiodarone given?",
+                  starText: ' * ',
+                  inputPaneText: 'How many amiodarone given?',
                   tabColour: Colors.red[500],
-                  hintTextInput: "amiodarone",
+                  hintTextInput: 'amiodarone',
                   textInputFunction: (value){
                     totalAmiodaroneGiven = int.parse(value);
                   },
@@ -282,46 +282,48 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                             alertText = true;
                           });
 
-                          print(startTime);
-                          print(cycleNumber);
-                          print(shockNumber);
-                          print(pVTCyclesNumber);
-                          print(peaCyclesNumber);
-                          print(asystoleCyclesNumber);
-                          print(vfCyclesNumber);
-                          print(totalAdrenalineGiven);
-                          print(totalAmiodaroneGiven);
-                          print(adrenalineLastCycle);
-                          print(amiodaroneLastCycle);
-                          print(firstRhythm);
-                          print(lastRhythm);
+                          // if (kDebugMode) {
+                          //   print(startTime);
+                          // }
+                          // print(cycleNumber);
+                          // print(shockNumber);
+                          // print(pVTCyclesNumber);
+                          // print(peaCyclesNumber);
+                          // print(asystoleCyclesNumber);
+                          // print(vfCyclesNumber);
+                          // print(totalAdrenalineGiven);
+                          // print(totalAmiodaroneGiven);
+                          // print(adrenalineLastCycle);
+                          // print(amiodaroneLastCycle);
+                          // print(firstRhythm);
+                          // print(lastRhythm);
 
                         }
 
                         else
                         {
                           Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            global.startTime = startTime;
+                            systemBrain.startTime = startTime;
                             systemBrain.cycleCounter = cycleNumber!;
 
                             systemBrain.nonShockableCounter = peaCyclesNumber! + asystoleCyclesNumber!;
-                            global.shockCounter = vfCyclesNumber! + pVTCyclesNumber!;
+                            systemBrain.shockCounter = vfCyclesNumber! + pVTCyclesNumber!;
 
                             systemBrain.adrenalineCounter  = totalAdrenalineGiven!;
 
-                            if(global.shockCounter >=3)
+                            if(systemBrain.shockCounter >=3)
                               {
                                 if(totalAmiodaroneGiven! == 0)
                                   {
-                                    global.specialAmiodaroneRequirement = 1;
+                                    systemBrain.specialAmiodaroneRequirement = 1;
                                   }
                                 else if (totalAmiodaroneGiven! == 1)
                                   {
-                                    global.specialAmiodaroneRequirement = 2;
+                                    systemBrain.specialAmiodaroneRequirement = 2;
                                   }
                                 else if (totalAmiodaroneGiven! >= 2)
                                   {
-                                    global.specialAmiodaroneRequirement = 0;
+                                    systemBrain.specialAmiodaroneRequirement = 0;
                                   }
                                 else
                                   {
@@ -330,25 +332,25 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
 
                               }
 
-                            if(global.roscCounter == null)
+                            if(systemBrain.roscCounter == null)
                               {
-                                global.roscCounter = 0;
+                                systemBrain.roscCounter = 0;
                               }
 
                             else
                             {
-                              global.roscCounter = totalROSC;
+                              systemBrain.roscCounter = totalROSC;
                             }
 
                             adrenalineLastCycle==0? systemBrain.adrenalineCycle =1:systemBrain.adrenalineCycle = 0;
 
                             if(callOutTime == null)
                               {
-                                global.callOutTime = "Not recorded";
+                                systemBrain.callOutTime = 'Not recorded';
                               }
                             else
                               {
-                                global.callOutTime = callOutTime;
+                                systemBrain.callOutTime = callOutTime;
                               }
 
 
@@ -357,24 +359,13 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
 
                               }
 
-                            undoEventButtonActive = false;
+                            systemBrain.undoEventButtonActive = false;
                             firstTimeShock = false;
-                            threeShockTherapyInProgress = false;
+                            systemBrain.threeShockTherapyInProgress = false;
 
                             playSound('rhythmCheck');
 
-                            global.log = global.log + '\nArrest handed over. Prior to handover: '
-                                +"\n\n" +"Call out time: ${global.callOutTime}"
-                                +"\n" +"Arrest start time: $startTime"
-                                +"\n" +"First rhythm detected: ${rhythmNames[firstRhythm!]}"
-                                +"\n" + "Cycles completed: ${systemBrain.cycleCounter}"
-                                +"\n" + "Non-shockable cycles completed: ${systemBrain.nonShockableCounter}"
-                                +"\n" + "Shockable cycles completed: ${global.shockCounter}"
-                                +"\n" + "Shocks delivered: $shockNumber"
-                                +"\n" + "Adrenaline doses given: ${systemBrain.adrenalineCounter}"
-                                +"\n" + "Amiodarone doses given: ${systemBrain.amiodaroneCounter}"
-                                +"\n" + "Total ROSC: ${global.roscCounter}"
-                                +"\n" + "Last rhythm detected: ${rhythmNames[firstRhythm!]}\n"
+                            global.log = '${global.log}\nArrest handed over. Prior to handover: \n\nCall out time: ${systemBrain.callOutTime}\nArrest start time: $startTime\nFirst rhythm detected: ${rhythmNames[firstRhythm!]}\nCycles completed: ${systemBrain.cycleCounter}\nNon-shockable cycles completed: ${systemBrain.nonShockableCounter}\nShockable cycles completed: ${systemBrain.shockCounter}\nShocks delivered: $shockNumber\nAdrenaline doses given: ${systemBrain.adrenalineCounter}\nAmiodarone doses given: ${systemBrain.amiodaroneCounter}\nTotal ROSC: ${systemBrain.roscCounter}\nLast rhythm detected: ${rhythmNames[firstRhythm!]}\n'
                             ;
 
                             return const MotherBoard(
@@ -384,8 +375,8 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                           }));
                         }
 
-                      } catch (e, s) {
-                        print(s);
+                      } catch (e) {
+                        //print(s);
                       }
 
                     }
@@ -395,7 +386,7 @@ class _ExternalArrestScreenState extends State<ExternalArrestScreen> {
                   child: Visibility(
                     visible: alertText,
                     child:
-                      const Text("Please complete all  required fields (*) fields before proceeding",
+                      const Text('Please complete all  required fields (*) fields before proceeding',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.red,

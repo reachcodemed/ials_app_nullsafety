@@ -19,6 +19,7 @@ class ALSapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return
       const MaterialApp(
+          debugShowCheckedModeBanner: false,
           home: FirstTimeCheck(),
       );
 

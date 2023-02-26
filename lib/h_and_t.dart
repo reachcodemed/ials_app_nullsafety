@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:ials_app_nullsafety/system_brain.dart';
+import 'package:provider/provider.dart';
 import 'constants.dart';
 import 'package:ials_app_nullsafety/globalVariables.dart' as global;
 import 'toggle_switches.dart';
-import 'package:flutter/cupertino.dart';
 
 
 class ReversibleTilesGrid extends StatefulWidget {
+  const ReversibleTilesGrid({super.key});
+
 
 
 
@@ -39,6 +42,8 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
   @override
   Widget build(BuildContext context) {
 
+    final systemBrain = Provider.of<SystemBrain>(context, listen: false);
+
     return Scaffold(
       body:
       SafeArea(
@@ -61,15 +66,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[0] = index;
-                        print(index);
+                        
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[0] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[0]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[0] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[0]} considered';
                         }
                         else
                         {
@@ -89,15 +94,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[1] = index;
-                        print(index);
+                  
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[1] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[1]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[1] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[1]} considered';
                         }
                         else
                         {
@@ -124,15 +129,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[2] = index;
-                        print(index);
+                     
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[2] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[2]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[2] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[2]} considered';
                         }
                         else
                         {
@@ -152,15 +157,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[3] = index;
-                        print(index);
+                 
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[3] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[3]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[3] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[3]} considered';
                         }
                         else
                         {
@@ -189,15 +194,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[4] = index;
-                        print(index);
+                         
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[4] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[4]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[4] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[4]} considered';
                         }
                         else
                         {
@@ -217,15 +222,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[5] = index;
-                        print(index);
+                         
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[5] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[5]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[5] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[5]} considered';
                         }
                         else
                         {
@@ -254,15 +259,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[6] = index;
-                        print(index);
+                         
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[6] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[6]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[6] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[6]} considered';
                         }
                         else
                         {
@@ -281,15 +286,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[7] = index;
-                        print(index);
+                         
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[7] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[7]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[7] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[7]} considered';
                         }
                         else
                         {
@@ -316,15 +321,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[8] = index;
-                        print(index);
+                         
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[8] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[8]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[8] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[8]} considered';
                         }
                         else
                         {
@@ -344,15 +349,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[9] = index;
-                        print(index);
+                         
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[9] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[9]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[9] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[9]} considered';
                         }
                         else
                         {
@@ -381,15 +386,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[10] = index;
-                        print(index);
+                         
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[10] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[10]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[10] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[10]} considered';
                         }
                         else
                         {
@@ -409,15 +414,15 @@ class _ReversibleTilesGridState extends State<ReversibleTilesGrid> {
                     {
                       setState(() {
                         indexPositionsOfHsAndTs[11] = index;
-                        print(index);
+                         
 
                         if (index == 0)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[11] +' excluded';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[11]} excluded';
                         }
                         else if (index == 1)
                         {
-                          global.log = global.log+ '\n' + global.timeNow +' - ' +hsAndTsLogStrings[11] +' considered';
+                          global.log = '${global.log}\n${systemBrain.timeNow} - ${hsAndTsLogStrings[11]} considered';
                         }
                         else
                         {

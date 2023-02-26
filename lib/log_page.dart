@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:ials_app_nullsafety/constants.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -45,7 +46,7 @@ class _LogPageState extends State<LogPage> {
             child:
             Container(
               color: Colors.white,
-              margin: EdgeInsets.all(20.0),
+              margin: const EdgeInsets.all(20.0),
               child:
               Column(
                 children: [
@@ -59,11 +60,11 @@ class _LogPageState extends State<LogPage> {
                     logTextPaneTextColour: kLogPageTextPaneTextColour,
                     reversePositionOfLog: false,
                     logTextPaneText:                '''
-Arrest start time: ${global.startDate} at ${global.startTime} 
+Arrest start time: ${systemBrain.startDate} at ${systemBrain.startTime} 
 
 Number of cycles: ${systemBrain.cycleCounter.toString()}
 Number of non-shockable cycles: ${systemBrain.nonShockableCounter.toString()}
-Number of shockable cycles: ${global.shockCounter}
+Number of shockable cycles: ${systemBrain.shockCounter}
 Number of adrenaline given: ${systemBrain.adrenalineCounter}
 Number of amiodarone given: ${systemBrain.amiodaroneCounter}
                       ''',
@@ -76,7 +77,7 @@ Number of amiodarone given: ${systemBrain.amiodaroneCounter}
                       color: kLogPageTitleBarColour,
                       child:
                       Row(
-                        children: [
+                        children: const [
                           Padding(
                             padding: EdgeInsets.all(6.0),
                             child:
@@ -114,7 +115,7 @@ Number of amiodarone given: ${systemBrain.amiodaroneCounter}
                           logTitleTextColour: kLogPageTitleTextColour,
                           logTextPaneColour: kLogPageTextPaneColour,
                           logTextPaneTextColour: kLogPageTextPaneTextColour,
-                          logTextPaneText: global.currentAccessLogText,
+                          logTextPaneText: systemBrain.currentAccessLogText,
                           reversePositionOfLog: false,
                         ),
                         LogTitleAndTextPanes(
@@ -125,7 +126,7 @@ Number of amiodarone given: ${systemBrain.amiodaroneCounter}
                           logTitleTextColour: kLogPageTitleTextColour,
                           logTextPaneColour: kLogPageTextPaneColour,
                           logTextPaneTextColour: kLogPageTextPaneTextColour,
-                          logTextPaneText: global.currentAirwayLogText,
+                          logTextPaneText: systemBrain.currentAirwayLogText,
                           reversePositionOfLog: false,
                         ),
                       ],
@@ -165,8 +166,8 @@ Number of amiodarone given: ${systemBrain.amiodaroneCounter}
                                   {
                                     return AlertDialog(
                                         title: Container(
-                                          margin: EdgeInsets.fromLTRB(10,0,10,15),
-                                          child: Text('Sorry! 🛠',
+                                          margin: const EdgeInsets.fromLTRB(10,0,10,15),
+                                          child: const Text('Sorry! 🛠',
                                             style: TextStyle(
                                               fontSize: 20.0,
 
@@ -174,11 +175,11 @@ Number of amiodarone given: ${systemBrain.amiodaroneCounter}
                                           ),
                                         ),
 
-                                        content: Text('The handover section is still under development. Please continue with the arrest on one device for now as we work hard on updating this.', style: TextStyle(color: Colors.grey, fontSize: 14.0),),
+                                        content: const Text('The handover section is still under development. Please continue with the arrest on one device for now as we work hard on updating this.', style: TextStyle(color: Colors.grey, fontSize: 14.0),),
                                         actions: [
 
                                           TextButton(
-                                              child: Text('Dismiss'),
+                                              child: const Text('Dismiss'),
                                               onPressed: (){
 
                                                 Navigator.of(context).pop();
@@ -228,14 +229,14 @@ Number of amiodarone given: ${systemBrain.amiodaroneCounter}
     final systemBrain = Provider.of<SystemBrain>(context,listen: false);
 
     final String sendLogText = (                '''
-Arrest start time: ${global.startDate} at ${global.startTime} 
+Arrest start time: ${systemBrain.startDate} at ${systemBrain.startTime} 
 
 Number of cycles: ${systemBrain.cycleCounter.toString()}
 Number of non-shockable cycles: ${systemBrain.nonShockableCounter.toString()}
-Number of shockable cycles: ${global.shockCounter}
+Number of shockable cycles: ${systemBrain.shockCounter}
 Number of adrenaline given: ${systemBrain.adrenalineCounter}
 Number of amiodarone given: ${systemBrain.amiodaroneCounter}
-                      ''' +"\n" + "Events Summary: \n" +global.log);
+                      ''' +'\n' + 'Events Summary: \n' +global.log);
 
     Share.share(sendLogText);
   }

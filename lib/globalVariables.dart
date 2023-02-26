@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 //int cycleCounter = 0;
 //int nonShockableCounter = 0;
-int shockCounter = 0;
+//int shockCounter = 0;
 
 //int adrenalineCounter = 0;
 //int adrenalineCycle = 0;
@@ -26,20 +26,21 @@ int shockCounter = 0;
 // eTTubeCounter = 0;
 // unsuccessfulAirwayCounter = 0;
 
-int specialAmiodaroneRequirement = 0;
+//int specialAmiodaroneRequirement = 0;
 
-String? callOutTime;
+//String? callOutTime;
 
-int? roscCounter;
+//int? roscCounter;
 
-String? startTime = TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0');
-String startDate = '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}';
+//String? startTime = TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0');
 
-String timeNow = TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0');
+//String startDate = '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}';
+
+//String timeNow = TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0');
 
 String log = '${TimeOfDay.now().hour.toString().padLeft(2,'0') +':' + TimeOfDay.now().minute.toString().padLeft(2,'0')} - Arrest started';
 
-int lastLogEntry = 0;
+//int lastLogEntry = 0;
 
 /*
 shockdelivered = 1
@@ -80,8 +81,7 @@ Tranexamic acid = 25
 // Number of amiodarone given: $amiodaroneCounter
 //                       ''';
 
-String currentAirwayLogText = "";
-
-String currentAccessLogText = "";
+//String currentAirwayLogText = "";
+//String currentAccessLogText = "";
 
 
